@@ -3,13 +3,12 @@ import Map from "./components/Map";
 
 function App() {
   return (
-    <div style={{ width: "600px", height: "800px", border: "solid 1px black" }}>
-      <TransformWrapper>
-        <TransformComponent>
-          <Map />
-        </TransformComponent>
-      </TransformWrapper>
-    </div>
+    // <TransformWrapper>
+    //   <TransformComponent>
+    //     <Map />
+    //   </TransformComponent>
+    // </TransformWrapper>
+    <Map />
   );
 }
 
