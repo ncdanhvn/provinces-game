@@ -5,22 +5,37 @@ import Map from "./components/Map";
 import MapButtons from "./components/MapButtons";
 import QuestionModal from "./components/Modal/QuestionModal";
 import Wrapper from "./components/Wrapper";
+import provinces from "./data/provinces";
 
 export interface Province {
   id: number;
   name: string;
 }
 
-const provinceData: Province[] = [];
-
 function App() {
   const [isOpenModal, setOpenModal] = useState(false);
   const [selectedId, setSelectedId] = useState<number>();
-  const [answeredProvinces, setAnwseredProvinces] = useState<Province[]>([]);
+  const [answeredProvinces, setAnwseredProvinces] = useState<number[]>([]);
+  const [score, setScore] = useState(0);
 
   const onProvinceClick = (id: number) => {
     setOpenModal(true);
     setSelectedId(id);
+  };
+
+  const checkAnswer = (answer: string) =>
+    answer.toLowerCase() ===
+    provinces.find((p) => p.id === selectedId)?.name.toLowerCase();
+
+  const newScore = () => {
+    const newScore = score + 1;
+    setScore(newScore);
+    setAnwseredProvinces([...answeredProvinces, selectedId!!]);
+    console.log("Well done, score: ", newScore);
+  };
+
+  const failAttemp = () => {
+    console.log("Wrong answer, try again!");
   };
 
   return (
@@ -38,14 +53,7 @@ function App() {
             isOpen={isOpenModal}
             id={selectedId!!}
             closeModal={() => setOpenModal(false)}
-            getAnswer={(a) => {
-              setAnwseredProvinces([
-                ...answeredProvinces,
-                { id: selectedId!!, name: a },
-              ]);
-              provinceData.push({ id: selectedId!!, name: a });
-              console.log(provinceData);
-            }}
+            checkAnswer={(a) => (checkAnswer(a) ? newScore() : failAttemp())}
           />
         </TransformWrapper>
       </Wrapper>

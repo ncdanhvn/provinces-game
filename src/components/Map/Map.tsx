@@ -1,11 +1,9 @@
-import { Province } from "../../App";
 import paths from "../../data/paths";
-import QuestionModal from "../Modal/QuestionModal";
 import "./Map.css";
 
 interface Props {
   onClick: (id: number) => void;
-  answeredProvinces: Province[];
+  answeredProvinces: number[];
 }
 
 const Map = ({ onClick, answeredProvinces }: Props) => {
@@ -21,7 +19,7 @@ const Map = ({ onClick, answeredProvinces }: Props) => {
           key={i}
           d={p}
           className={
-            answeredProvinces.find((p) => p.id === i)
+            answeredProvinces.find((p) => p === i) !== undefined
               ? "svg-path answered"
               : "svg-path"
           }

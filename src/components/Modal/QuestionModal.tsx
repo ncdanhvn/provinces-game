@@ -18,10 +18,10 @@ interface Props {
   id: number;
   isOpen: boolean;
   closeModal: () => void;
-  getAnswer: (answer: string) => void;
+  checkAnswer: (answer: string) => void;
 }
 
-const QuestionModal = ({ id, isOpen, closeModal, getAnswer }: Props) => {
+const QuestionModal = ({ id, isOpen, closeModal, checkAnswer }: Props) => {
   const answerRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -38,7 +38,7 @@ const QuestionModal = ({ id, isOpen, closeModal, getAnswer }: Props) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          if (answerRef.current) getAnswer(answerRef.current.value);
+          if (answerRef.current) checkAnswer(answerRef.current.value);
           closeModal();
         }}
       >
