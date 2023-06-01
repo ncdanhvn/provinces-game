@@ -1,12 +1,14 @@
+import { Province } from "../../App";
 import paths from "../../data/paths";
 import QuestionModal from "../Modal/QuestionModal";
 import "./Map.css";
 
 interface Props {
   onClick: (id: number) => void;
+  answeredProvinces: Province[];
 }
 
-const Map = ({ onClick }: Props) => {
+const Map = ({ onClick, answeredProvinces }: Props) => {
   return (
     <svg
       width="768"
@@ -15,7 +17,16 @@ const Map = ({ onClick }: Props) => {
       xmlns="http://www.w3.org/2000/svg"
     >
       {paths.map((p, i) => (
-        <path key={i} d={p} className="svg-path" onClick={() => onClick(i)} />
+        <path
+          key={i}
+          d={p}
+          className={
+            answeredProvinces.find((p) => p.id === i)
+              ? "svg-path answered"
+              : "svg-path"
+          }
+          onClick={() => onClick(i)}
+        />
       ))}
     </svg>
   );
