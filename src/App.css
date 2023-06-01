@@ -3,7 +3,7 @@ body {
 }
 
 .wrapper {
-  box-sizing: border-box;
+  position: relative;
   width: 768px;
   height: 868px;
   margin: auto;
@@ -12,4 +12,60 @@ body {
   background: #ffffff;
   border: 1px solid #bccab0;
   border-radius: 6px;
+}
+
+.map-buttons {
+  position: absolute;
+  z-index: 10;
+  right: 20px;
+
+  border: 1px solid #8cb369;
+  background: #fff;
+  border-radius: 6px;
+  filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.15));
+
+  cursor: pointer;
+}
+
+.reset-button {
+  bottom: 126px;
+  width: 30px;
+  height: 30px;
+}
+
+.button-group {
+  bottom: 54px;
+  width: 30px;
+  height: 60px;
+  overflow: hidden;
+}
+
+.zoom-buttons {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+}
+
+.map-buttons-icon {
+  color: #8cb369;
+  font-size: large;
+  margin-top: 6px;
+  stroke-width: 1px;
+}
+
+.info-button {
+  bottom: 12px;
+  right: 22px;
+  width: 26px;
+  height: 26px;
+  border-radius: 15px;
+}
+
+.info-button-icon {
+  margin-top: 3px;
+}
+
+.map-buttons-icon:hover {
+  stroke-width: 2px;
+  color: #5b8e7d;
 }
