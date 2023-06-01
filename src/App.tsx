@@ -7,6 +7,7 @@ import QuestionModal from "./components/Modal/QuestionModal";
 import Wrapper from "./components/Wrapper";
 import provinces from "./data/provinces";
 import Score from "./components/Score";
+import Timer from "./components/Timer";
 
 export interface Province {
   id: number;
@@ -43,6 +44,7 @@ function App() {
     <>
       <Wrapper>
         <Score score={score} />
+        <Timer timeTotal={1} timeUp={() => console.log("Time up")} />
         <TransformWrapper>
           <TransformComponent>
             <Map
