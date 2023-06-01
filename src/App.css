@@ -69,3 +69,27 @@ body {
   stroke-width: 2px;
   color: #5b8e7d;
 }
+
+.score-box {
+  position: absolute;
+  z-index: 10;
+  left: 299px;
+  top: 15px;
+
+  font-weight: 700;
+  font-family: "Grandstander";
+  font-style: normal;
+
+  color: #bc4b51;
+}
+
+.score {
+  font-size: 45px;
+  line-height: 45px;
+}
+
+.score-text {
+  font-size: 20px;
+  line-height: 20px;
+  opacity: 0.7;
+}

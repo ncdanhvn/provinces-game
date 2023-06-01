@@ -6,6 +6,7 @@ import MapButtons from "./components/MapButtons";
 import QuestionModal from "./components/Modal/QuestionModal";
 import Wrapper from "./components/Wrapper";
 import provinces from "./data/provinces";
+import Score from "./components/Score";
 
 export interface Province {
   id: number;
@@ -41,6 +42,7 @@ function App() {
   return (
     <>
       <Wrapper>
+        <Score score={score} />
         <TransformWrapper>
           <TransformComponent>
             <Map
