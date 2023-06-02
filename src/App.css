@@ -3,6 +3,7 @@ body {
 }
 
 .wrapper {
+  box-sizing: border-box;
   position: relative;
   width: 768px;
   height: 868px;
@@ -12,6 +13,8 @@ body {
   background: white;
   border: 1px solid var(--background);
   border-radius: 6px;
+
+  padding-top: 15px;
 }
 
 .map-buttons {
@@ -78,25 +81,44 @@ body {
 .score-box {
   position: absolute;
   z-index: 10;
-  left: 299px;
-  top: 15px;
+  left: 294px;
+  top: 22px;
+
+  box-sizing: border-box;
+  width: 180px;
+  height: 50px;
+  border-radius: 8px;
 
   font-weight: 700;
   font-family: "Grandstander";
   font-style: normal;
 
   color: var(--scores-primary);
+  background-color: var(--scores-background);
+
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .score {
+  position: absolute;
+  top: 7px;
+  left: 24px;
+
+  color: var(--scores-primary);
   font-size: 45px;
   line-height: 45px;
 }
 
 .score-text {
-  font-size: 20px;
+  position: absolute;
+  top: 21px;
+  left: 49px;
+
+  padding-top: -40px;
+  font-size: 18px;
   line-height: 20px;
-  opacity: 0.7;
+  color: var(--scores-secondary);
+  letter-spacing: -0.07em;
 }
 
 .timer-box {

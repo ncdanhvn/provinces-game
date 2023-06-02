@@ -7,8 +7,8 @@ interface Props {
 const Score = ({ score }: Props) => {
   return (
     <div className="score-box">
-      <span className="score">{score}</span>
-      <span className="score-text">/63 tỉnh thành</span>
+      <div className="score">{score}</div>
+      <div className="score-text">/63 tỉnh thành</div>
     </div>
   );
 };
