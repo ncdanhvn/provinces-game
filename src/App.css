@@ -93,9 +93,7 @@ body {
   font-family: "Grandstander";
   font-style: normal;
 
-  color: var(--scores-primary);
   background-color: var(--scores-background);
-
   box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
@@ -114,7 +112,6 @@ body {
   top: 21px;
   left: 49px;
 
-  padding-top: -40px;
   font-size: 18px;
   line-height: 20px;
   color: var(--scores-secondary);
@@ -124,13 +121,21 @@ body {
 .timer-box {
   position: absolute;
   z-index: 10;
-  top: 28px;
+  top: 27px;
   right: 20px;
 
+  box-sizing: border-box;
+  width: 138px;
+  height: 40px;
+  border-radius: 8px;
+
   color: var(--primary);
+  background-color: var(--scores-background);
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
 
   display: flex;
-  align-items: end;
+  justify-content: center;
+  align-items: center;
 }
 
 .timer-icon {
@@ -143,12 +148,12 @@ body {
 }
 
 .timer-segments > div {
-  width: 7px;
-  height: 14px;
+  width: 6px;
+  height: 12px;
   border: 1px solid var(--primary);
   border-radius: 4px;
 
-  margin-left: 3px;
+  margin-left: 2px;
 }
 
 .passed-segment {
