@@ -98,8 +98,12 @@ body {
 .score {
   position: absolute;
   top: 7px;
-  left: 24px;
+  left: 15px;
 
+  width: 45px;
+  height: 45px;
+
+  text-align: center;
   color: var(--scores-primary);
   font-size: 45px;
   line-height: 45px;
@@ -108,7 +112,7 @@ body {
 .score-text {
   position: absolute;
   top: 21px;
-  left: 49px;
+  left: 58px;
 
   font-size: 18px;
   line-height: 20px;
