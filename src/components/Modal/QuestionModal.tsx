@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import Modal from "react-modal";
+import "./Modal.css";
 
 Modal.setAppElement("#root");
 
@@ -33,8 +34,10 @@ const QuestionModal = ({ id, isOpen, closeModal, checkAnswer }: Props) => {
       shouldCloseOnOverlayClick={true}
       shouldCloseOnEsc={true}
       onAfterOpen={() => answerRef.current?.focus()}
+      className="modal-box"
+      // overlayClassName="overlay"
     >
-      <div>Enter province's name:</div>
+      <h3 className="modal-title">Tỉnh thành nào đây?</h3>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -42,8 +45,10 @@ const QuestionModal = ({ id, isOpen, closeModal, checkAnswer }: Props) => {
           closeModal();
         }}
       >
-        <input ref={answerRef} />
-        <button type="submit">Ok</button>
+        <input ref={answerRef} className="modal-input" />
+        <button type="submit" className="modal-button">
+          Ok
+        </button>
       </form>
     </Modal>
   );
