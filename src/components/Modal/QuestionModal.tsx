@@ -35,7 +35,7 @@ const QuestionModal = ({ id, isOpen, closeModal, checkAnswer }: Props) => {
       shouldCloseOnEsc={true}
       onAfterOpen={() => answerRef.current?.focus()}
       className="modal-box"
-      // overlayClassName="overlay"
+      overlayClassName="overlay"
     >
       <h3 className="modal-title">Tỉnh thành nào đây?</h3>
       <form
