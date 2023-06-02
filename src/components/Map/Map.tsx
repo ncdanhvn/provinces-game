@@ -1,3 +1,4 @@
+import { useState } from "react";
 import paths from "../../data/paths";
 import "./Map.css";
 
@@ -7,6 +8,8 @@ interface Props {
 }
 
 const Map = ({ onClick, answeredProvinces }: Props) => {
+  let mousePosition = { x: 0, y: 0 };
+
   return (
     <svg
       width="768"
@@ -24,7 +27,14 @@ const Map = ({ onClick, answeredProvinces }: Props) => {
               ? "svg-path answered"
               : "svg-path"
           }
-          onClick={() => onClick(i)}
+          onMouseDown={(e) => {
+            mousePosition.x = e.clientX;
+            mousePosition.y = e.clientY;
+          }}
+          onMouseUp={(e) => {
+            if (e.clientX === mousePosition.x && e.clientY === mousePosition.y)
+              onClick(i);
+          }}
         />
       ))}
     </svg>
