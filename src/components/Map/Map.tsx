@@ -13,6 +13,7 @@ const Map = ({ onClick, answeredProvinces }: Props) => {
       height="868"
       viewBox="-216 -95 768 868"
       xmlns="http://www.w3.org/2000/svg"
+      className="vn-map"
     >
       {paths.map((p, i) => (
         <path

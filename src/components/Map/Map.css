@@ -1,8 +1,11 @@
+.vn-map {
+  filter: drop-shadow(1px 3px 1px rgba(0, 0, 0, 0.25));
+}
+
 .svg-path {
-  fill: #9fb28d;
-  opacity: 0.7;
+  fill: #bccab0;
   stroke: white;
-  stroke-width: 0.2px;
+  stroke-width: 0.5px;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
