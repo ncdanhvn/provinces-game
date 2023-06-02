@@ -9,8 +9,8 @@ body {
   margin: auto;
   text-align: center;
 
-  background: #ffffff;
-  border: 1px solid #bccab0;
+  background: white;
+  border: 1px solid var(--background);
   border-radius: 6px;
 }
 
@@ -19,8 +19,8 @@ body {
   z-index: 10;
   right: 20px;
 
-  border: 1px solid #8cb369;
-  background: #fff;
+  border: 1px solid var(--primary);
+  background: white;
   border-radius: 6px;
   filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.15));
 
@@ -47,7 +47,7 @@ body {
 }
 
 .map-buttons-icon {
-  color: #8cb369;
+  color: var(--primary);
   font-size: large;
   margin-top: 6px;
   stroke-width: 1px;
@@ -67,7 +67,7 @@ body {
 
 .map-buttons-icon:hover {
   stroke-width: 2px;
-  color: #5b8e7d;
+  color: var(--primary-bold);
 }
 
 .score-box {
@@ -80,7 +80,7 @@ body {
   font-family: "Grandstander";
   font-style: normal;
 
-  color: #bc4b51;
+  color: var(--scores-primary);
 }
 
 .score {
@@ -100,7 +100,7 @@ body {
   top: 28px;
   right: 20px;
 
-  color: #6c9a8a;
+  color: var(--primary);
 
   display: flex;
   align-items: end;
@@ -118,16 +118,16 @@ body {
 .timer-segments > div {
   width: 7px;
   height: 14px;
-  border: 1px solid #6c9a8a;
+  border: 1px solid var(--primary);
   border-radius: 4px;
 
   margin-left: 3px;
 }
 
 .passed-segment {
-  background: fff;
+  background: white;
 }
 
 .avaiable-segment {
-  background: #6c9a8a;
+  background: var(--primary);
 }

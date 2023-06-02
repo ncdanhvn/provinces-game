@@ -3,7 +3,7 @@
 }
 
 .svg-path {
-  fill: #bccab0;
+  fill: var(--background);
   stroke: white;
   stroke-width: 0.5px;
   stroke-linecap: round;
@@ -11,11 +11,10 @@
 }
 
 .svg-path:hover {
-  fill: #f5a258;
+  fill: var(--secondary);
   box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.25);
 }
 
 .answered {
-  fill: #5b8e7d;
-  opacity: 0.9;
+  fill: var(--primary);
 }
