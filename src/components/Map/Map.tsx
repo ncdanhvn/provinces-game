@@ -15,18 +15,13 @@ const Map = ({
   selectedId,
   isHighlight,
 }: Props) => {
-  let mousePosition = { x: 0, y: 0 };
-
-  const getClassName = (i: number) => {
-    const classes = ["svg-path"];
-
-    if (answeredProvinces.find((p) => p === i) !== undefined)
-      classes.push("answered");
-    else if (isHighlight && i === selectedId) classes.push("highlighted");
-    else classes.push("not-answered");
-
-    return classes.join(" ");
+  const getProvinceClass = (i: number) => {
+    if (answeredProvinces.includes(i)) return "answered";
+    if (isHighlight && i === selectedId) return "highlighted";
+    else return "not-answered";
   };
+
+  let mousePosition = { x: 0, y: 0 };
 
   return (
     <svg
@@ -40,13 +35,17 @@ const Map = ({
         <path
           key={i}
           d={p}
-          className={getClassName(i)}
+          className={`svg-path ${getProvinceClass(i)}`}
           onMouseDown={(e) => {
             mousePosition.x = e.clientX;
             mousePosition.y = e.clientY;
           }}
           onMouseUp={(e) => {
-            if (e.clientX === mousePosition.x && e.clientY === mousePosition.y)
+            if (
+              getProvinceClass(i) === "not-answered" &&
+              e.clientX === mousePosition.x &&
+              e.clientY === mousePosition.y
+            )
               onClick(i);
           }}
         />
