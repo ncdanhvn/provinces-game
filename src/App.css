@@ -53,6 +53,11 @@ body {
   stroke-width: 1px;
 }
 
+.map-buttons-icon:hover {
+  stroke-width: 2px;
+  color: var(--primary-bold);
+}
+
 .info-button {
   bottom: 12px;
   right: 22px;
@@ -65,8 +70,8 @@ body {
   margin-top: 3px;
 }
 
-.map-buttons-icon:hover {
-  stroke-width: 2px;
+.info-button-icon:hover {
+  font-size: larger;
   color: var(--primary-bold);
 }
 

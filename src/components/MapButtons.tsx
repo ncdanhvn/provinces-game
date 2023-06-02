@@ -21,7 +21,10 @@ const MapButtons = () => {
           <BiMinus className="map-buttons-icon" />
         </div>
       </div>
-      <div className="map-buttons info-button" onClick={() => resetTransform()}>
+      <div
+        className="map-buttons info-button"
+        onClick={() => console.log("Click info button")}
+      >
         <IoInformationSharp className="map-buttons-icon info-button-icon" />
       </div>
     </>
