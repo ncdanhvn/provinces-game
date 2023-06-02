@@ -23,6 +23,7 @@ const Map = ({
     if (answeredProvinces.find((p) => p === i) !== undefined)
       classes.push("answered");
     else if (isHighlight && i === selectedId) classes.push("highlighted");
+    else classes.push("not-answered");
 
     return classes.join(" ");
   };

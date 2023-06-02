@@ -7,16 +7,15 @@
 }
 
 .svg-path {
-  fill: var(--background);
   stroke: white;
   stroke-width: 0.5px;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.svg-path:hover {
-  fill: var(--secondary);
-  box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.25);
+.not-answered {
+  fill: var(--background);
+  cursor: pointer;
 }
 
 .answered {
@@ -24,6 +23,11 @@
 }
 
 .highlighted {
+  fill: var(--secondary);
+  box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.25);
+}
+
+.not-answered:hover {
   fill: var(--secondary);
   box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.25);
 }
