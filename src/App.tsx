@@ -16,7 +16,7 @@ export interface Province {
 
 function App() {
   const [isOpenModal, setOpenModal] = useState(false);
-  const [selectedId, setSelectedId] = useState<number>();
+  const [selectedId, setSelectedId] = useState<number | null>(null);
   const [answeredProvinces, setAnwseredProvinces] = useState<number[]>([]);
   const [score, setScore] = useState(0);
 
@@ -50,6 +50,8 @@ function App() {
             <Map
               onClick={onProvinceClick}
               answeredProvinces={answeredProvinces}
+              selectedId={selectedId}
+              isHighlight={isOpenModal}
             />
           </TransformComponent>
           <MapButtons />

@@ -5,10 +5,27 @@ import "./Map.css";
 interface Props {
   onClick: (id: number) => void;
   answeredProvinces: number[];
+  selectedId: number | null;
+  isHighlight: boolean;
 }
 
-const Map = ({ onClick, answeredProvinces }: Props) => {
+const Map = ({
+  onClick,
+  answeredProvinces,
+  selectedId,
+  isHighlight,
+}: Props) => {
   let mousePosition = { x: 0, y: 0 };
+
+  const getClassName = (i: number) => {
+    const classes = ["svg-path"];
+
+    if (answeredProvinces.find((p) => p === i) !== undefined)
+      classes.push("answered");
+    else if (isHighlight && i === selectedId) classes.push("highlighted");
+
+    return classes.join(" ");
+  };
 
   return (
     <svg
@@ -22,11 +39,7 @@ const Map = ({ onClick, answeredProvinces }: Props) => {
         <path
           key={i}
           d={p}
-          className={
-            answeredProvinces.find((p) => p === i) !== undefined
-              ? "svg-path answered"
-              : "svg-path"
-          }
+          className={getClassName(i)}
           onMouseDown={(e) => {
             mousePosition.x = e.clientX;
             mousePosition.y = e.clientY;
