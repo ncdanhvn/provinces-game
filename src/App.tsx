@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import "./App.css";
 import Map from "./components/Map";
 import MapButtons from "./components/MapButtons";
 import QuestionModal from "./components/Modal/QuestionModal";
-import Wrapper from "./components/Wrapper";
-import provinces from "./data/provinces";
 import Score from "./components/Score";
 import Timer from "./components/Timer";
+import Wrapper from "./components/Wrapper";
+import gameReducer from "./reducers/gameStates";
 
 export interface Province {
   id: number;
@@ -15,24 +15,15 @@ export interface Province {
 }
 
 function App() {
-  const [isOpenModal, setOpenModal] = useState(false);
-  const [selectedId, setSelectedId] = useState<number | null>(null);
-  const [answeredProvinces, setAnwseredProvinces] = useState<number[]>([]);
-  const [score, setScore] = useState(0);
-
-  const onProvinceClick = (id: number) => {
-    setOpenModal(true);
-    setSelectedId(id);
-  };
-
-  const checkAnswer = (answer: string) =>
-    answer.toLowerCase() ===
-    provinces.find((p) => p.id === selectedId)?.name.toLowerCase();
+  const [state, dispatch] = useReducer(gameReducer, {
+    isOpenModal: false,
+    selectedId: null,
+    answeredProvinces: [],
+    score: 0,
+    answerResult: null,
+  });
 
   const newScore = () => {
-    const newScore = score + 1;
-    setScore(newScore);
-    setAnwseredProvinces([...answeredProvinces, selectedId!!]);
     console.log("Well done, score: ", newScore);
   };
 
@@ -43,23 +34,23 @@ function App() {
   return (
     <>
       <Wrapper>
-        <Score score={score} />
+        <Score score={state.score} />
         <Timer timeTotal={1} timeUp={() => console.log("Time up")} />
         <TransformWrapper>
           <TransformComponent>
             <Map
-              onClick={onProvinceClick}
-              answeredProvinces={answeredProvinces}
-              selectedId={selectedId}
-              isHighlight={isOpenModal}
+              onClick={(selectedId) => dispatch({ type: "SELECT", selectedId })}
+              answeredProvinces={state.answeredProvinces}
+              selectedId={state.selectedId}
+              isHighlight={state.isOpenModal}
             />
           </TransformComponent>
           <MapButtons />
           <QuestionModal
-            isOpen={isOpenModal}
-            id={selectedId!!}
-            closeModal={() => setOpenModal(false)}
-            checkAnswer={(a) => (checkAnswer(a) ? newScore() : failAttemp())}
+            isOpen={state.isOpenModal}
+            id={state.selectedId!!}
+            closeModal={() => dispatch({ type: "CLOSE" })}
+            checkAnswer={(answer) => dispatch({ type: "ANSWER", answer })}
           />
         </TransformWrapper>
       </Wrapper>
