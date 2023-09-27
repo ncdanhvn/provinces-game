@@ -36,11 +36,11 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
         ? state
         : { ...state, isOpenModal: true, selectedId: action.selectedId };
     case "ANSWER":
-      return checkAnswer(action.answer, state.selectedId!!)
+      return checkAnswer(action.answer, state.selectedId!)
         ? {
             isOpenModal: false,
             selectedId: null,
-            answeredProvinces: [...state.answeredProvinces, state.selectedId!!],
+            answeredProvinces: [...state.answeredProvinces, state.selectedId!],
             score: state.score + 1,
             answerResult: true,
           }

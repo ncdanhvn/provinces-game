@@ -48,7 +48,7 @@ function App() {
           <MapButtons />
           <QuestionModal
             isOpen={state.isOpenModal}
-            id={state.selectedId!!}
+            id={state.selectedId!}
             closeModal={() => dispatch({ type: "CLOSE" })}
             checkAnswer={(answer) => dispatch({ type: "ANSWER", answer })}
           />
