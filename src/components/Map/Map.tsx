@@ -1,10 +1,10 @@
-import { MousePosition } from "../../interfaces";
+import { MousePosition, ClickData } from "../../interfaces";
 import { useState } from "react";
 import paths from "../../data/paths";
 import "./Map.css";
 
 interface Props {
-    onClick: (id: number) => void;
+    onClick: (clickData: ClickData) => void;
     answeredProvinces: number[];
     selectedId: number | null;
     isHighlight: boolean;
@@ -54,7 +54,7 @@ const Map = ({
                                 y: e.clientY,
                             })
                         )
-                            onClick(i);
+                            onClick({ id: i, position: MouseDownPosition });
                     }}
                 />
             ))}

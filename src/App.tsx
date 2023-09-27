@@ -39,7 +39,7 @@ function App() {
         <TransformWrapper>
           <TransformComponent>
             <Map
-              onClick={(selectedId) => dispatch({ type: "SELECT", selectedId })}
+              onClick={(clickData) => dispatch({ type: "SELECT", clickData })}
               answeredProvinces={state.answeredProvinces}
               selectedId={state.selectedId}
               isHighlight={state.isOpenModal}

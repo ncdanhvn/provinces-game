@@ -1,4 +1,5 @@
 import provinces from "../data/provinces";
+import { ClickData } from "../interfaces";
 
 const checkAnswer = (answer: string, selectedId: number): boolean =>
   answer.toLowerCase() ===
@@ -15,7 +16,7 @@ interface GameState {
 
 interface SelectProvince {
   type: "SELECT";
-  selectedId: number;
+  clickData: ClickData;
 }
 
 interface Answer {
@@ -34,7 +35,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
     case "SELECT":
       return state.isOpenModal
         ? state
-        : { ...state, isOpenModal: true, selectedId: action.selectedId };
+        : { ...state, isOpenModal: true, selectedId: action.clickData.id };
     case "ANSWER":
       return checkAnswer(action.answer, state.selectedId!)
         ? {
