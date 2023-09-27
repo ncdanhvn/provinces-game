@@ -1,23 +1,17 @@
 import { useRef } from "react";
 import Modal, { Styles } from "react-modal";
 import "./Modal.css";
-import { MousePosition } from "../../interfaces";
+import { MousePosition, WindowDimensions } from "../../interfaces";
+import {
+    QuestionModalHeight,
+    QuestionModalWidth,
+} from "../../data/const";
+import useWindowDimensions from "../../hooks/windowDimensions";
 
 Modal.setAppElement("#root");
 
-const customStyles = {
-    content: {
-        top: "50%",
-        left: "50%",
-        right: "auto",
-        bottom: "auto",
-        marginRight: "-50%",
-        transform: "translate(-50%, -50%)",
-    },
-};
-
 interface Props {
-    mousePosition: MousePosition;
+    mousePosition: MousePosition | null;
     isOpen: boolean;
     closeModal: () => void;
     checkAnswer: (answer: string) => void;
@@ -30,11 +24,13 @@ const QuestionModal = ({
     checkAnswer,
 }: Props) => {
     const answerRef = useRef<HTMLInputElement>(null);
-    console.log(mousePosition);
+    const windowDim = useWindowDimensions();
+    // mousePosToModalStyle(mousePosition, windowDim)
+
     return (
         <Modal
             isOpen={isOpen}
-            style={customStyles}
+            style={mousePosToModalStyle(mousePosition, windowDim)}
             contentLabel="Example Modal"
             onRequestClose={closeModal}
             shouldCloseOnOverlayClick={true}
@@ -62,8 +58,34 @@ const QuestionModal = ({
 
 export default QuestionModal;
 
-const mousePosToModalStyle = (mousePos: MousePosition): Styles => {
+const mousePosToModalStyle = (
+    mousePos: MousePosition | null,
+    windowDim: WindowDimensions
+): Styles => {
+    // Check if mousePos is null (for the first time when app just start)
+    let x = mousePos?.x ?? 0;
+    let y = mousePos?.y ?? 0;
+    
+    // Calculate where to put question modal, left or right, up or down to click point
+    let xSide = -1; // -1 is left side, 0 is right side, 
+    if (x < windowDim.width / 2) xSide = 0;
+    let ySide = -1; // -1 is up side, 0 is down side
+    if (y < windowDim.height / 2) ySide = 0;
+
+    // Calculate the buffers
+    let xBuffer = 40
+    if (xSide === -1) xBuffer = -50 
+    let yBuffer = 40
+    if (ySide === -1) yBuffer = -50 
+    const top = y + ySide * QuestionModalHeight + yBuffer
+    const left = x + xSide * QuestionModalWidth + xBuffer
+
     return {
-        content: {},
+        content: {
+            top: `${top}px`,
+            left: `${left}px`,
+            right: "auto",
+            bottom: "auto",
+        },
     };
 };

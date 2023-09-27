@@ -49,7 +49,7 @@ function App() {
           <MapButtons />
           <QuestionModal
             isOpen={state.isOpenModal}
-            mousePosition={state.mousePosition!}
+            mousePosition={state.mousePosition}
             closeModal={() => dispatch({ type: "CLOSE" })}
             checkAnswer={(answer) => dispatch({ type: "ANSWER", answer })}
           />
