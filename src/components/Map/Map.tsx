@@ -1,57 +1,65 @@
+import { MousePosition, ClickData } from "../../interfaces";
 import { useState } from "react";
 import paths from "../../data/paths";
 import "./Map.css";
 
 interface Props {
-  onClick: (id: number) => void;
-  answeredProvinces: number[];
-  selectedId: number | null;
-  isHighlight: boolean;
+    onClick: (clickData: ClickData) => void;
+    answeredProvinces: number[];
+    selectedId: number | null;
+    isHighlight: boolean;
 }
 
 const Map = ({
-  onClick,
-  answeredProvinces,
-  selectedId,
-  isHighlight,
+    onClick,
+    answeredProvinces,
+    selectedId,
+    isHighlight,
 }: Props) => {
-  const getProvinceClass = (i: number) => {
-    if (answeredProvinces.includes(i)) return "answered";
-    if (isHighlight && i === selectedId) return "highlighted";
-    else return "not-answered";
-  };
+    const getProvinceClass = (i: number) => {
+        if (answeredProvinces.includes(i)) return "answered";
+        if (isHighlight && i === selectedId) return "highlighted";
+        else return "not-answered";
+    };
 
-  let mousePosition = { x: 0, y: 0 };
+    let MouseDownPosition: MousePosition = { x: 0, y: 0 };
+    const checkTheSamePosition = (
+        oldPosition: MousePosition,
+        newPosition: MousePosition
+    ): boolean =>
+        oldPosition.x === newPosition.x && oldPosition.y === newPosition.y;
 
-  return (
-    <svg
-      width="768"
-      height="868"
-      viewBox="-216 -95 768 868"
-      xmlns="http://www.w3.org/2000/svg"
-      className="vn-map"
-    >
-      {paths.map((p, i) => (
-        <path
-          key={i}
-          d={p}
-          className={`svg-path ${getProvinceClass(i)}`}
-          onMouseDown={(e) => {
-            mousePosition.x = e.clientX;
-            mousePosition.y = e.clientY;
-          }}
-          onMouseUp={(e) => {
-            if (
-              getProvinceClass(i) === "not-answered" &&
-              e.clientX === mousePosition.x &&
-              e.clientY === mousePosition.y
-            )
-              onClick(i);
-          }}
-        />
-      ))}
-    </svg>
-  );
+    return (
+        <svg
+            width="768"
+            height="868"
+            viewBox="-216 -95 768 868"
+            xmlns="http://www.w3.org/2000/svg"
+            className="vn-map"
+        >
+            {paths.map((p, i) => (
+                <path
+                    key={i}
+                    d={p}
+                    className={`svg-path ${getProvinceClass(i)}`}
+                    onMouseDown={(e) => {
+                        MouseDownPosition.x = e.clientX;
+                        MouseDownPosition.y = e.clientY;
+                    }}
+                    onMouseUp={(e) => {
+                        if (
+                            getProvinceClass(i) === "not-answered" &&
+                            checkTheSamePosition(MouseDownPosition, {
+                                x: e.clientX,
+                                y: e.clientY,
+                            })
+                        )
+                            onClick({ id: i, position: MouseDownPosition });
+                    }}
+                />
+            ))}
+        </svg>
+    );
 };
 
 export default Map;

@@ -21,6 +21,7 @@ function App() {
     answeredProvinces: [],
     score: 0,
     answerResult: null,
+    mousePosition: null,
   });
 
   const newScore = () => {
@@ -39,7 +40,7 @@ function App() {
         <TransformWrapper>
           <TransformComponent>
             <Map
-              onClick={(selectedId) => dispatch({ type: "SELECT", selectedId })}
+              onClick={(clickData) => dispatch({ type: "SELECT", clickData })}
               answeredProvinces={state.answeredProvinces}
               selectedId={state.selectedId}
               isHighlight={state.isOpenModal}
@@ -48,7 +49,7 @@ function App() {
           <MapButtons />
           <QuestionModal
             isOpen={state.isOpenModal}
-            id={state.selectedId!}
+            mousePosition={state.mousePosition}
             closeModal={() => dispatch({ type: "CLOSE" })}
             checkAnswer={(answer) => dispatch({ type: "ANSWER", answer })}
           />
