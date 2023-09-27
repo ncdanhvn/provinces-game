@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import Modal from "react-modal";
 import "./Modal.css";
+import { MousePosition } from "../../interfaces";
 
 Modal.setAppElement("#root");
 
@@ -16,13 +17,13 @@ const customStyles = {
 };
 
 interface Props {
-  id: number;
+  mousePosition: MousePosition;
   isOpen: boolean;
   closeModal: () => void;
   checkAnswer: (answer: string) => void;
 }
 
-const QuestionModal = ({ id, isOpen, closeModal, checkAnswer }: Props) => {
+const QuestionModal = ({ mousePosition, isOpen, closeModal, checkAnswer }: Props) => {
   const answerRef = useRef<HTMLInputElement>(null);
 
   return (

@@ -21,6 +21,7 @@ function App() {
     answeredProvinces: [],
     score: 0,
     answerResult: null,
+    mousePosition: null,
   });
 
   const newScore = () => {
@@ -48,7 +49,7 @@ function App() {
           <MapButtons />
           <QuestionModal
             isOpen={state.isOpenModal}
-            id={state.selectedId!}
+            mousePosition={state.mousePosition!}
             closeModal={() => dispatch({ type: "CLOSE" })}
             checkAnswer={(answer) => dispatch({ type: "ANSWER", answer })}
           />
