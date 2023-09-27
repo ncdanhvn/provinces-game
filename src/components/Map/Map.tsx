@@ -1,3 +1,4 @@
+import { MousePosition } from "../../interfaces";
 import { useState } from "react";
 import paths from "../../data/paths";
 import "./Map.css";
@@ -7,11 +8,6 @@ interface Props {
     answeredProvinces: number[];
     selectedId: number | null;
     isHighlight: boolean;
-}
-
-interface MousePosition {
-    x: number;
-    y: number;
 }
 
 const Map = ({
