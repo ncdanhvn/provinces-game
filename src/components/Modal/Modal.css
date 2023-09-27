@@ -1,38 +1,32 @@
-.modal-box {
+.modal {
   position: absolute;
-  top: 100px;
-  right: 100px;
-
-  padding: 32px 20px;
   border-radius: 10px;
   background: #ffffff;
   border: 1px solid var(--background);
-  box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.25);
-
+  
   font-family: "Grandstander";
   font-style: normal;
   text-align: center;
 }
 
-.modal-title {
-  margin: 0;
-  text-align: center;
+.modal--main {
+  padding: 32px 20px;
+  box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.25);
+}
 
+.modal__question {
+  margin: 0;
   font-weight: 600;
   font-size: 24px;
   line-height: 26px;
-  font-family: "Grandstander";
-  font-style: normal;
-
   color: var(--modal-title);
 }
 
-.modal-input {
+.modal__input {
   margin: 22px auto 0 auto;
   display: block;
   width: 150px;
 
-  background: #ffffff;
   border: none;
   border-bottom: 1px solid #bccab0;
   outline: none;
@@ -43,22 +37,23 @@
   color: var(--modal-text);
 }
 
-.modal-button {
-  margin-top: 22px;
-
+.modal__button {
   background: var(--modal-button-background);
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-
+  
   font-family: "Grandstander";
-  font-style: normal;
   font-weight: 600;
   font-size: 22px;
   line-height: 22px;
   color: var(--modal-button-text);
-
+  
   padding: 6px 10px 4px 10px;
   cursor: pointer;
+}
+
+.modal__button--question {
+  margin-top: 22px;
 }
 
 .overlay {
