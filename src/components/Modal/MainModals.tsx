@@ -4,7 +4,6 @@ Modal.setAppElement("#root");
 
 interface Props {
     isOpen: boolean;
-    closeModal: () => void;
     onStartGame: () => void;
 }
 
@@ -16,15 +15,14 @@ const customStyles = {
     },
 };
 
-const StartGameModal = ({ isOpen, closeModal, onStartGame }: Props) => {
+const StartGameModal = ({ isOpen, onStartGame }: Props) => {
     return (
         <Modal
             isOpen={isOpen}
             style={customStyles}
             contentLabel="Start Game Modal"
-            onRequestClose={closeModal}
-            shouldCloseOnOverlayClick={true}
-            shouldCloseOnEsc={true}
+            shouldCloseOnOverlayClick={false}
+            shouldCloseOnEsc={false}
             className="modal modal--main"
             overlayClassName="overlay"
         >
@@ -37,7 +35,7 @@ const StartGameModal = ({ isOpen, closeModal, onStartGame }: Props) => {
                 Bạn có <span className="modal__highlight">5 phút</span> để hoàn
                 thành càng nhiều tỉnh, thành càng tốt
             </p>
-            <div className="modal__button">
+            <div className="modal__button" onClick={onStartGame}>
                 Bắt Đầu
                 <img src="assets/start_arrow.svg" alt="start arow" />
             </div>

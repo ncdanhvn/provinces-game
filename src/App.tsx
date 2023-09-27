@@ -8,6 +8,7 @@ import Score from "./components/Score";
 import Timer from "./components/Timer";
 import Wrapper from "./components/Wrapper";
 import gameReducer from "./reducers/gameStates";
+import { StartGameModal } from "./components/Modal/MainModals";
 
 export interface Province {
   id: number;
@@ -54,6 +55,7 @@ function App() {
             closeModal={() => dispatch({ type: "CLOSE" })}
             checkAnswer={(answer) => dispatch({ type: "ANSWER", answer })}
           />
+          <StartGameModal isOpen={state.state === "INTRO"} onStartGame={() => dispatch({ type: "START" })}/>
         </TransformWrapper>
       </Wrapper>
     </>
