@@ -6,13 +6,17 @@ const checkAnswer = (answer: string, selectedId: number): boolean =>
     provinces.find((p) => p.id === selectedId)?.name.toLowerCase();
 
 interface GameState {
-    // state: string;
+    state: "INTRO" | "RUNNING" | "OVER";
     isOpenModal: boolean;
     selectedId: number | null;
     answeredProvinces: number[];
     score: number;
     answerResult: boolean | null;
     mousePosition: MousePosition | null; // Position of mouse when click map province
+}
+
+interface StartGame {
+    type: "START";
 }
 
 interface SelectProvince {
@@ -29,10 +33,15 @@ interface CloseModal {
     type: "CLOSE";
 }
 
-type GameAction = SelectProvince | Answer | CloseModal;
+type GameAction = StartGame | SelectProvince | Answer | CloseModal;
 
 const gameReducer = (state: GameState, action: GameAction): GameState => {
-    switch (action.type) {
+    switch (action.type) { 
+        case "START":
+            return {
+                ...state,
+                state: 'RUNNING'
+            }
         case "SELECT":
             return state.isOpenModal
                 ? state
@@ -45,6 +54,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
         case "ANSWER":
             return checkAnswer(action.answer, state.selectedId!)
                 ? {
+                      ...state,
                       isOpenModal: false,
                       selectedId: null,
                       answeredProvinces: [

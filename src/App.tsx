@@ -16,6 +16,7 @@ export interface Province {
 
 function App() {
   const [state, dispatch] = useReducer(gameReducer, {
+    state: 'INTRO',
     isOpenModal: false,
     selectedId: null,
     answeredProvinces: [],
