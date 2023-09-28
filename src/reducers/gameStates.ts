@@ -6,13 +6,17 @@ const checkAnswer = (answer: string, selectedId: number): boolean =>
     provinces.find((p) => p.id === selectedId)?.name.toLowerCase();
 
 interface GameState {
-    // state: string;
+    state: "INTRO" | "RUNNING" | "OVER";
     isOpenModal: boolean;
     selectedId: number | null;
     answeredProvinces: number[];
     score: number;
     answerResult: boolean | null;
     mousePosition: MousePosition | null; // Position of mouse when click map province
+}
+
+interface StartGame {
+    type: "START";
 }
 
 interface SelectProvince {
@@ -29,10 +33,21 @@ interface CloseModal {
     type: "CLOSE";
 }
 
-type GameAction = SelectProvince | Answer | CloseModal;
+interface EndGame {
+    type: "END";
+}
+
+type GameAction = StartGame | SelectProvince | Answer | CloseModal | EndGame;
 
 const gameReducer = (state: GameState, action: GameAction): GameState => {
     switch (action.type) {
+        case "START":
+            return {
+                ...state,
+                state: "RUNNING",
+                answeredProvinces: [],
+                score: 0,
+            };
         case "SELECT":
             return state.isOpenModal
                 ? state
@@ -45,6 +60,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
         case "ANSWER":
             return checkAnswer(action.answer, state.selectedId!)
                 ? {
+                      ...state,
                       isOpenModal: false,
                       selectedId: null,
                       answeredProvinces: [
@@ -59,6 +75,15 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
         case "CLOSE":
             return {
                 ...state,
+                isOpenModal: false,
+                selectedId: null,
+                answerResult: null,
+                mousePosition: null,
+            };
+        case "END":
+            return {
+                ...state,
+                state: "OVER",
                 isOpenModal: false,
                 selectedId: null,
                 answerResult: null,

@@ -1,73 +1,135 @@
-.modal-box {
-  position: absolute;
-  top: 100px;
-  right: 100px;
+/* MODAL GENERAL */
+.modal {
+    position: absolute;
+    border-radius: 10px;
+    background: #ffffff;
+    border: 1px solid var(--background);
 
-  padding: 32px 20px;
-  border-radius: 10px;
-  background: #ffffff;
-  border: 1px solid var(--background);
-  box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.25);
-
-  font-family: "Grandstander";
-  font-style: normal;
-  text-align: center;
+    font-family: "Grandstander";
+    font-style: normal;
+    text-align: center;
+    outline: none;
 }
 
-.modal-title {
-  margin: 0;
-  text-align: center;
-
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 26px;
-  font-family: "Grandstander";
-  font-style: normal;
-
-  color: var(--modal-title);
+.modal--main {
+    padding: 38px 28px;
+    box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.25);
 }
 
-.modal-input {
-  margin: 22px auto 0 auto;
-  display: block;
-  width: 150px;
-
-  background: #ffffff;
-  border: none;
-  border-bottom: 1px solid #bccab0;
-  outline: none;
-
-  text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 18px;
-  color: var(--modal-text);
+/* For question modal  */
+.modal__question {
+    margin: 0;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 26px;
+    color: var(--modal-title);
 }
 
-.modal-button {
-  margin-top: 22px;
+.modal__input {
+    margin: 22px auto 0 auto;
+    display: block;
+    width: 150px;
 
-  background: var(--modal-button-background);
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+    border: none;
+    border-bottom: 1px solid #bccab0;
+    outline: none;
 
-  font-family: "Grandstander";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 22px;
-  line-height: 22px;
-  color: var(--modal-button-text);
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: var(--modal-text);
+}
 
-  padding: 6px 10px 4px 10px;
-  cursor: pointer;
+.modal__button {
+    background: var(--modal-button-background);
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+
+    font-family: "Grandstander";
+    font-weight: 600;
+    line-height: 22px;
+    color: var(--modal-button-text);
+    
+    cursor: pointer;
+}
+
+.modal__button--question {
+    font-size: 22px;
+    margin-top: 22px;
+    padding: 6px 10px 4px 10px;
+}
+
+/* For Information Modal */
+.modal--start {
+    width: 350px;
+}
+
+.modal__title {
+    color: rgba(188, 75, 81, 0.9);
+    font-size: 28px;
+    font-weight: 600;    
+    margin-bottom: 20px;
+}
+
+.modal__p {
+    color: #5b8e7d;
+    font-size: 20px;
+    line-height: 24px;
+    margin: 12px 0;
+}
+
+.modal__p--start {
+    width: 270px;
+}
+
+.modal__highlight {
+    color: #bc4b51;
+}
+
+.modal__rank {
+    color: #f4a259;
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.modal__ol {
+    color: #5b8e7d;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px; /* 133.333% */
+    text-align: left;
+}
+
+.modal__ol > li {
+    padding-left: 4px;
+}
+
+.modal__button--start {
+    font-size: 24px;
+    margin-top: 22px;
+    padding: 12px 24px 10px 24px;
+}
+
+.modal__button--over {
+    font-size: 24px;
+    margin-top: 10px;
+    padding: 9px 24px 10px 24px;
+}
+
+.modal__button__icon {
+    margin-left: 10px;
+    transform: translateY(1px);
 }
 
 .overlay {
-  position: absolute;
-  z-index: 30;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.15);
-  /* backdrop-filter: blur(1px); */
+    position: absolute;
+    z-index: 30;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.15);
+    /* backdrop-filter: blur(1px); */
 }
