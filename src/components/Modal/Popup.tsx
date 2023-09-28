@@ -1,7 +1,8 @@
+import { useEffect } from "react";
 import Modal from "react-modal";
+import checkIcon from "../../assets/check_icon.svg";
+import usePlayStateStore from "../../stores/playStateStore";
 import "./Modal.css";
-import checkIcon from '../../assets/check_icon.svg'
-import { Congratulation } from "../../data/messages";
 
 Modal.setAppElement("#root");
 
@@ -13,14 +14,21 @@ const inUpperCenter = {
     },
 };
 
-interface Props {
-    isOpen: boolean;
-}
+const TimeOut = 2; // in second
 
-const Popup = ({ isOpen }: Props) => {
+const Popup = () => {
+    const popupMessage = usePlayStateStore(
+        ({ playState }) => playState.popupMessage
+    );
+    const closePopup = usePlayStateStore(store => store.closePopup)
+
+    useEffect(() => {
+        if (popupMessage !== null) setTimeout(closePopup, TimeOut * 1000);
+    }, [popupMessage]);
+
     return (
         <Modal
-            isOpen={isOpen}
+            isOpen={popupMessage !== null}
             style={inUpperCenter}
             contentLabel="Correct Answer Popup"
             shouldCloseOnOverlayClick={false}
@@ -29,14 +37,9 @@ const Popup = ({ isOpen }: Props) => {
             overlayClassName="overlay"
         >
             <img src={checkIcon} alt="Check_icon" />
-            <div className="modal__popup-message">{getMessage()}</div>
+            <div className="modal__popup-message">{popupMessage}</div>
         </Modal>
     );
 };
 
 export default Popup;
-
-const getMessage = (): string | null => {
-    // if (firstTime) return FirstTimeMessage
-    return Congratulation[Math.floor(Math.random() * Congratulation.length)];
-};

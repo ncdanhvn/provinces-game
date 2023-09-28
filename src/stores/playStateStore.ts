@@ -3,13 +3,14 @@ import { create } from "zustand";
 import Provinces from "../data/provinces";
 import { MousePosition } from "../interfaces";
 import useResultStore from "./resultStore";
-import { TryAgain } from "../data/messages";
+import { Congratulation, TryAgain } from "../data/messages";
 
 interface PlayState {
     selectedId: number | null;
     answer: string | null;
     mousePosition: MousePosition | null;
     retryMessage: string | null;
+    popupMessage: string | null;
 }
 
 const defaultState: PlayState = {
@@ -17,6 +18,7 @@ const defaultState: PlayState = {
     answer: null,
     mousePosition: null,
     retryMessage: null,
+    popupMessage: null,
 };
 
 interface PlayStateStore {
@@ -24,6 +26,7 @@ interface PlayStateStore {
     select: (id: number, mousePos: MousePosition) => void;
     cancel: () => void;
     answer: (answer: string) => void;
+    closePopup: () => void;
 }
 
 const usePlayStateStore = create<PlayStateStore>((set, get) => ({
@@ -37,12 +40,15 @@ const usePlayStateStore = create<PlayStateStore>((set, get) => ({
         ),
     cancel: () =>
         set(
-            produce(( store ) => {
-                store.playState = { ...defaultState };
+            produce((store) => {
+                store.playState = {
+                    ...defaultState,
+                    popupMessage: store.playState.popupMessage,
+                };
             })
         ),
     answer: (answer) => {
-        // If answer correctly, set new score and 'cancel'
+        // If answer correctly, set new score and 'cancel' then set popup message
         // else do onIncorrect (shake modal and refocus to input field), and set isRetry to new message
         const id = get().playState.selectedId!;
         if (checkAnswer(answer, id)) {
@@ -54,7 +60,10 @@ const usePlayStateStore = create<PlayStateStore>((set, get) => ({
             );
             set(
                 produce((store) => {
-                    store.playState = { ...defaultState };
+                    store.playState = {
+                        ...defaultState,
+                        popupMessage: getPopupMessage(),
+                    };
                 })
             );
         } else {
@@ -65,6 +74,13 @@ const usePlayStateStore = create<PlayStateStore>((set, get) => ({
                 })
             );
         }
+    },
+    closePopup: () => {
+        set(
+            produce(({ playState }) => {
+                playState.popupMessage = null;
+            })
+        );
     },
 }));
 
@@ -91,4 +107,8 @@ const onIncorrect = () => {
 const getRetryMessage = (): string | null => {
     // if (firstTime) return FirstTimeMessage
     return TryAgain[Math.floor(Math.random() * TryAgain.length)];
+};
+
+const getPopupMessage = (): string | null => {
+    return Congratulation[Math.floor(Math.random() * Congratulation.length)];
 };

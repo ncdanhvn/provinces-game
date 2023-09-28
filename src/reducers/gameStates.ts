@@ -10,6 +10,7 @@ interface GameState {
     answerResult: boolean | null;
     mousePosition: MousePosition | null; // Position of mouse when click map province
     isRetry: boolean | null;
+    isPopup: boolean | null;
 }
 
 interface StartGame {
@@ -30,11 +31,15 @@ interface CloseModal {
     type: "CLOSE";
 }
 
+interface ClosePopup {
+    type: "CLOSE_POPUP";
+}
+
 interface EndGame {
     type: "END";
 }
 
-type GameAction = StartGame | SelectProvince | Answer | CloseModal | EndGame;
+type GameAction = StartGame | SelectProvince | Answer | CloseModal | ClosePopup | EndGame;
 
 const gameReducer = (state: GameState, action: GameAction): GameState => {
     switch (action.type) {
@@ -68,7 +73,8 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
                     answerResult: true,
                     mousePosition: null,
                     isRetry: false,
-                };
+                    isPopup: true,
+                };            
 
             // Answer wrong
             onIncorrect();
@@ -82,6 +88,11 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
                 mousePosition: null,
                 isRetry: false,
             };
+        case "CLOSE_POPUP":
+            return {
+                ...state,
+                isPopup: false,
+            };            
         case "END":
             return {
                 ...state,
@@ -90,7 +101,8 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
                 selectedId: null,
                 answerResult: null,
                 mousePosition: null,
-                isRetry: null
+                isRetry: null,
+                isPopup: null,
             };
     }
 };
