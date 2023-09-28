@@ -10,6 +10,8 @@ import Wrapper from "./components/Wrapper";
 import gameReducer from "./reducers/gameStates";
 import { GameOverModal, StartGameModal } from "./components/Modal/MainModals";
 
+const TimeTotal = 5;    // in minute
+
 export interface Province {
     id: number;
     name: string;
@@ -39,7 +41,7 @@ function App() {
             <Wrapper>
                 <Score score={state.score} />
                 <Timer
-                    timeTotal={0.1}
+                    timeTotal={TimeTotal}
                     timeUp={() => dispatch({ type: "END" })}
                     isEnableTimer={state.state === "RUNNING"}
                 />

@@ -1,6 +1,5 @@
 import start_arrow from "../../assets/start_arrow.svg";
 import Modal from "react-modal";
-import Score from "../Score";
 
 Modal.setAppElement("#root");
 
@@ -70,13 +69,13 @@ const GameOverModal = ({ isOpen, onStartGame, score }: GameOverProps) => {
         >
             <div className="modal__title">Game Over</div>
             <p className="modal__p modal__p--start">
-                Bạn đúng <span className="modal__highlight">{score}/63</span>{" "}
-                tỉnh thành. Chúc mừng bạn lọt{" "}
-                <span className="highlight">Top 20% </span>
+                Bạn đúng <span className="modal__highlight">{score}/63 </span>
+                tỉnh thành. Chúc mừng bạn lọt
+                <span className="modal__highlight"> Top 20% </span>
             </p>
             <p className="modal__rank">Xuất sắc</p>
             <button
-                className="modal__button modal__button--start"
+                className="modal__button modal__button--over"
                 onClick={onStartGame}
             >
                 <span>Chơi Lại</span>

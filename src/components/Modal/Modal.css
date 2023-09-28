@@ -12,7 +12,7 @@
 }
 
 .modal--main {
-    padding: 40px 32px;
+    padding: 38px 28px;
     box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.25);
 }
 
@@ -88,10 +88,10 @@
 
 .modal__rank {
     color: #f4a259;
-    font-size: 26px;
+    font-size: 32px;
     font-weight: 700;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 30px;
+    margin-bottom: 20px;
 }
 
 .modal__ol {
@@ -110,6 +110,12 @@
     font-size: 24px;
     margin-top: 22px;
     padding: 12px 24px 10px 24px;
+}
+
+.modal__button--over {
+    font-size: 24px;
+    margin-top: 10px;
+    padding: 9px 24px 10px 24px;
 }
 
 .modal__button__icon {
