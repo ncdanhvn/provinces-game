@@ -38,7 +38,11 @@ function App() {
         <>
             <Wrapper>
                 <Score score={state.score} />
-                <Timer timeTotal={1} timeUp={() => dispatch({ type: "END" })} />
+                <Timer
+                    timeTotal={0.1}
+                    timeUp={() => dispatch({ type: "END" })}
+                    isEnableTimer={state.state === "RUNNING"}
+                />
                 <TransformWrapper>
                     <TransformComponent>
                         <Map
