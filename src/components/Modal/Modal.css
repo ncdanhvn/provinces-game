@@ -156,3 +156,14 @@
         transform: translateX(0);
     }
 }
+
+
+/* POPUP styles */
+.modal--popup {
+    font-size: 16px;
+    color: var(--modal-button-text)    
+}
+
+.modal__popup-message {
+    margin-left: 4px;
+}
