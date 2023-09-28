@@ -33,15 +33,21 @@ interface CloseModal {
     type: "CLOSE";
 }
 
-type GameAction = StartGame | SelectProvince | Answer | CloseModal;
+interface EndGame {
+    type: "END";
+}
+
+type GameAction = StartGame | SelectProvince | Answer | CloseModal | EndGame;
 
 const gameReducer = (state: GameState, action: GameAction): GameState => {
-    switch (action.type) { 
+    switch (action.type) {
         case "START":
             return {
                 ...state,
-                state: 'RUNNING'
-            }
+                state: "RUNNING",
+                answeredProvinces: [],
+                score: 0,
+            };
         case "SELECT":
             return state.isOpenModal
                 ? state
@@ -69,6 +75,15 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
         case "CLOSE":
             return {
                 ...state,
+                isOpenModal: false,
+                selectedId: null,
+                answerResult: null,
+                mousePosition: null,
+            };
+        case "END":
+            return {
+                ...state,
+                state: "OVER",
                 isOpenModal: false,
                 selectedId: null,
                 answerResult: null,

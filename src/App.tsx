@@ -8,7 +8,7 @@ import Score from "./components/Score";
 import Timer from "./components/Timer";
 import Wrapper from "./components/Wrapper";
 import gameReducer from "./reducers/gameStates";
-import { StartGameModal } from "./components/Modal/MainModals";
+import { GameOverModal, StartGameModal } from "./components/Modal/MainModals";
 
 export interface Province {
   id: number;
@@ -56,6 +56,7 @@ function App() {
             checkAnswer={(answer) => dispatch({ type: "ANSWER", answer })}
           />
           <StartGameModal isOpen={state.state === "INTRO"} onStartGame={() => dispatch({ type: "START" })}/>
+          <GameOverModal isOpen={state.state === "OVER"} onStartGame={() => dispatch({ type: "START" })} score={state.score}/>
         </TransformWrapper>
       </Wrapper>
     </>
