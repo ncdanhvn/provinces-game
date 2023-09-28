@@ -23,12 +23,12 @@ const QuestionModal = () => {
         <Modal
             isOpen={selectedId !== null}
             style={mousePosToModalStyle(mousePosition, windowDim)}
-            contentLabel="Example Modal"
+            contentLabel="Question Modal"
             onRequestClose={cancel}
             shouldCloseOnOverlayClick={true}
             shouldCloseOnEsc={true}
             onAfterOpen={() => answerRef.current?.focus()}
-            className="modal modal--main"
+            className="modal modal--main modal--question"
             overlayClassName="overlay"
         >
             <h3 className="modal__question">Tỉnh thành nào đây?</h3>
