@@ -42,20 +42,22 @@ const usePlayStateStore = create<PlayStateStore>((set, get) => ({
             })
         ),
     answer: (answer) => {
-        // If answer correctly, set new score
+        // If answer correctly, set new score and 'cancel'
+        // else do nothing
         const id = get().playState.selectedId!;
-        if (checkAnswer(answer, id))
+        if (checkAnswer(answer, id)) {
             useResultStore.setState(
                 produce(({ result }) => {
                     result.score += 1;
                     result.answeredProvinces.push(id);
                 })
             );
-        set(
-            produce((store) => {
-                store.playState = { ...defaultState };
-            })
-        );
+            set(
+                produce((store) => {
+                    store.playState = { ...defaultState };
+                })
+            );
+        }
     },
 }));
 

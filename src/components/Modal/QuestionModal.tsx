@@ -35,7 +35,8 @@ const QuestionModal = () => {
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    answer(answerRef.current!.value);
+                    const answerValue = answerRef.current!.value.trim();
+                    answerValue ? answer(answerValue) : cancel();
                 }}
             >
                 <input ref={answerRef} className="modal__input" />
