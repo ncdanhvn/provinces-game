@@ -8,10 +8,11 @@
     font-family: "Grandstander";
     font-style: normal;
     text-align: center;
+    outline: none;
 }
 
 .modal--main {
-    padding: 32px 40px;
+    padding: 40px 32px;
     box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.25);
 }
 
@@ -46,30 +47,39 @@
 
     font-family: "Grandstander";
     font-weight: 600;
-    font-size: 22px;
     line-height: 22px;
     color: var(--modal-button-text);
-
-    padding: 6px 10px 4px 10px;
+    
     cursor: pointer;
 }
 
 .modal__button--question {
+    font-size: 22px;
     margin-top: 22px;
+    padding: 6px 10px 4px 10px;
 }
 
 /* For Information Modal */
+.modal--start {
+    width: 350px;
+}
+
 .modal__title {
     color: rgba(188, 75, 81, 0.9);
     font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 48px;
+    font-weight: 600;    
+    margin-bottom: 20px;
 }
 
 .modal__p {
     color: #5b8e7d;
     font-size: 20px;
     line-height: 24px;
+    margin: 12px 0;
+}
+
+.modal__p--start {
+    width: 270px;
 }
 
 .modal__highlight {
@@ -89,6 +99,22 @@
     font-size: 18px;
     font-weight: 400;
     line-height: 24px; /* 133.333% */
+    text-align: left;
+}
+
+.modal__ol > li {
+    padding-left: 4px;
+}
+
+.modal__button--start {
+    font-size: 24px;
+    margin-top: 22px;
+    padding: 12px 24px 10px 24px;
+}
+
+.modal__button__icon {
+    margin-left: 10px;
+    transform: translateY(1px);
 }
 
 .overlay {

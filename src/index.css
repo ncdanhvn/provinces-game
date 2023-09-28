@@ -12,3 +12,9 @@
   --modal-button-text: #5b8e7d;
   --modal-button-background: #f4e285;
 }
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
