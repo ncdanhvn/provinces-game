@@ -13,7 +13,7 @@ const QuestionModal = () => {
     const windowDim = useWindowDimensions();
 
     const {
-        playState: { selectedId, mousePosition },
+        playState: { selectedId, mousePosition, retryMessage },
         cancel,
         answer,
     } = usePlayStateStore();
@@ -32,6 +32,7 @@ const QuestionModal = () => {
             overlayClassName="overlay"
         >
             <h3 className="modal__question">Tỉnh thành nào đây?</h3>
+            { retryMessage && <p className="modal__p">{retryMessage}</p>}
             <form
                 onSubmit={(e) => {
                     e.preventDefault();

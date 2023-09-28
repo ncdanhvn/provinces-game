@@ -9,6 +9,7 @@ interface GameState {
     score: number;
     answerResult: boolean | null;
     mousePosition: MousePosition | null; // Position of mouse when click map province
+    isRetry: boolean | null;
 }
 
 interface StartGame {
@@ -66,11 +67,12 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
                     score: state.score + 1,
                     answerResult: true,
                     mousePosition: null,
+                    isRetry: false,
                 };
 
             // Answer wrong
             onIncorrect();
-            return { ...state, answerResult: false };
+            return { ...state, answerResult: false, isRetry: true };
         case "CLOSE":
             return {
                 ...state,
@@ -78,6 +80,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
                 selectedId: null,
                 answerResult: null,
                 mousePosition: null,
+                isRetry: false,
             };
         case "END":
             return {
@@ -87,6 +90,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
                 selectedId: null,
                 answerResult: null,
                 mousePosition: null,
+                isRetry: null
             };
     }
 };
@@ -107,6 +111,6 @@ const onIncorrect = () => {
     );
 
     // refocus input field
-    const modalInput = document.querySelector('.modal__input') as HTMLElement
+    const modalInput = document.querySelector(".modal__input") as HTMLElement;
     modalInput.focus();
 };

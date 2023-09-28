@@ -3,17 +3,20 @@ import { create } from "zustand";
 import Provinces from "../data/provinces";
 import { MousePosition } from "../interfaces";
 import useResultStore from "./resultStore";
+import { TryAgain } from "../data/messages";
 
 interface PlayState {
     selectedId: number | null;
     answer: string | null;
     mousePosition: MousePosition | null;
+    retryMessage: string | null;
 }
 
 const defaultState: PlayState = {
     selectedId: null,
     answer: null,
     mousePosition: null,
+    retryMessage: null,
 };
 
 interface PlayStateStore {
@@ -27,23 +30,20 @@ const usePlayStateStore = create<PlayStateStore>((set, get) => ({
     playState: { ...defaultState },
     select: (id, mousePos) =>
         set(
-            produce((store) => {
-                store.playState = {
-                    selectedId: id,
-                    mousePosition: mousePos,
-                    answer: null,
-                };
+            produce(({ playState }) => {
+                playState.selectedId = id;
+                playState.mousePosition = mousePos;
             })
         ),
     cancel: () =>
         set(
-            produce((store) => {
+            produce(( store ) => {
                 store.playState = { ...defaultState };
             })
         ),
     answer: (answer) => {
         // If answer correctly, set new score and 'cancel'
-        // else do onIncorrect (shake modal and refocus to input field)
+        // else do onIncorrect (shake modal and refocus to input field), and set isRetry to new message
         const id = get().playState.selectedId!;
         if (checkAnswer(answer, id)) {
             useResultStore.setState(
@@ -57,7 +57,14 @@ const usePlayStateStore = create<PlayStateStore>((set, get) => ({
                     store.playState = { ...defaultState };
                 })
             );
-        } else onIncorrect();
+        } else {
+            onIncorrect();
+            set(
+                produce(({ playState }) => {
+                    playState.retryMessage = getRetryMessage();
+                })
+            );
+        }
     },
 }));
 
@@ -79,4 +86,9 @@ const onIncorrect = () => {
     // refocus input field
     const modalInput = document.querySelector(".modal__input") as HTMLElement;
     modalInput.focus();
+};
+
+const getRetryMessage = (): string | null => {
+    // if (firstTime) return FirstTimeMessage
+    return TryAgain[Math.floor(Math.random() * TryAgain.length)];
 };
