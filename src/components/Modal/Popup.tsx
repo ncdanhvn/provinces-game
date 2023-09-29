@@ -8,7 +8,7 @@ Modal.setAppElement("#root");
 
 const inUpperCenter = {
     content: {
-        top: "20%",
+        top: "14%",
         left: "50%",
         transform: "translate(-50%, -50%)",
     },
@@ -37,7 +37,7 @@ const Popup = () => {
             overlayClassName="overlay"
         >
             <img src={checkIcon} alt="Check_icon" />
-            <div className="modal__popup-message">{popupMessage}</div>
+            <span className="modal__popup-message">{popupMessage}</span>
         </Modal>
     );
 };
