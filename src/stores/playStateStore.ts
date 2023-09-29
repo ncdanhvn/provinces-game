@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { MousePosition } from "../interfaces";
-import Provinces from "../data/provinces";
 
 interface PlayState {
     selectedId: number | null;
@@ -36,7 +35,3 @@ const usePlayStateStore = create<PlayStateStore>((set, get) => ({
 }));
 
 export default usePlayStateStore;
-
-// const checkAnswer = (answer: string, selectedId: number): boolean =>
-//     answer.toLowerCase() ===
-//     Provinces.find((p) => p.id === selectedId)?.name.toLowerCase();
