@@ -1,24 +1,21 @@
-import { MousePosition, ClickData } from "../../interfaces";
-import { useState } from "react";
 import paths from "../../data/paths";
+import { MousePosition } from "../../interfaces";
+import usePlayStateStore from "../../stores/playStateStore";
+import useResultStore from "../../stores/resultStore";
 import "./Map.css";
 
-interface Props {
-    onClick: (clickData: ClickData) => void;
-    answeredProvinces: number[];
-    selectedId: number | null;
-    isHighlight: boolean;
-}
+const Map = () => {
+    const answeredProvinces = useResultStore(
+        ({ result }) => result.answeredProvinces
+    );
+    const selectedId = usePlayStateStore(
+        ({ playState }) => playState.selectedId
+    );
+    const select = usePlayStateStore(({ select }) => select);
 
-const Map = ({
-    onClick,
-    answeredProvinces,
-    selectedId,
-    isHighlight,
-}: Props) => {
     const getProvinceClass = (i: number) => {
         if (answeredProvinces.includes(i)) return "answered";
-        if (isHighlight && i === selectedId) return "highlighted";
+        if (i === selectedId) return "highlighted";
         else return "not-answered";
     };
 
@@ -54,7 +51,7 @@ const Map = ({
                                 y: e.clientY,
                             })
                         )
-                            onClick({ id: i, position: MouseDownPosition });
+                            select(i, MouseDownPosition);
                     }}
                 />
             ))}

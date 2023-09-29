@@ -12,8 +12,6 @@ import useGameStateStore from "./stores/gameStateStore";
 import usePlayStateStore from "./stores/playStateStore";
 import Provinces from "./data/provinces";
 
-const TimeTotal = 5; // in minute
-
 function App() {
     const { gameState, startGame, finishGame } = useGameStateStore();
     const { playState, select, cancel: cancelSelection } = usePlayStateStore();
@@ -22,26 +20,11 @@ function App() {
     return (
         <>
             <Wrapper>
-                <Score score={result.score} />
-                <Timer
-                    timeTotal={TimeTotal}
-                    timeUp={() => {
-                        // Cancel the current selection (if any), then change game state to over
-                        cancelSelection();
-                        finishGame();
-                    }}
-                    isEnableTimer={gameState === "RUNNING"}
-                />
+                <Score />
+                <Timer />
                 <TransformWrapper>
                     <TransformComponent>
-                        <Map
-                            onClick={(clickData) =>
-                                select(clickData.id, clickData.position)
-                            }
-                            answeredProvinces={result.answeredProvinces}
-                            selectedId={playState.selectedId}
-                            isHighlight={playState.selectedId !== null}
-                        />
+                        <Map />
                     </TransformComponent>
                     <MapButtons />
                     <QuestionModal

@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import { RxLapTimer } from "react-icons/rx";
+import useGameStateStore from "../stores/gameStateStore";
+import usePlayStateStore from "../stores/playStateStore";
 
-interface Props {
-    timeTotal: number; // time total in minutes
-    timeUp: () => void;
-    isEnableTimer: boolean;
-}
+const TimeTotal = 5; // in minute
 
-const Timer = ({ timeTotal, timeUp, isEnableTimer }: Props) => {
+const Timer = () => {
+    const gameState = useGameStateStore(({gameState}) => gameState)
+    const finishGame = useGameStateStore(({finishGame}) => finishGame)
+    const cancelSelection = usePlayStateStore(({cancel}) => cancel)
     const [count, setCount] = useState(0);
-    const segmentTime = timeTotal * 60 * 100;
+    const segmentTime = TimeTotal * 60 * 100;
 
     useEffect(() => {
-        if (isEnableTimer)
+        if (gameState === "RUNNING")
             if (count < 10) {
                 if (count === 0) console.log("Timer start");
                 setTimeout(() => {
@@ -21,9 +22,10 @@ const Timer = ({ timeTotal, timeUp, isEnableTimer }: Props) => {
                 }, segmentTime);
             } else {
                 setCount(0)
-                timeUp();
+                cancelSelection();
+                finishGame();
             }
-    }, [count, isEnableTimer]);
+    }, [count, gameState]);
 
     return (
         <div className="timer-box">
