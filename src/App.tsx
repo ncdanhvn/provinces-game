@@ -15,6 +15,7 @@ function App() {
         <Wrapper>
             <Score />
             <Timer />
+            <Popup />
             <TransformWrapper>
                 <TransformComponent>
                     <Map />
@@ -23,7 +24,6 @@ function App() {
                 <QuestionModal />
                 <StartGameModal />
                 <GameOverModal />
-                <Popup />
             </TransformWrapper>
         </Wrapper>
     );
