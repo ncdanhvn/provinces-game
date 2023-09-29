@@ -1,6 +1,8 @@
-import { create } from "zustand";
-import { MousePosition } from "../interfaces";
 import { produce } from "immer";
+import { create } from "zustand";
+import Provinces from "../data/provinces";
+import { MousePosition } from "../interfaces";
+import useResultStore from "./resultStore";
 
 interface PlayState {
     selectedId: number | null;
@@ -39,12 +41,26 @@ const usePlayStateStore = create<PlayStateStore>((set, get) => ({
                 store.playState = { ...defaultState };
             })
         ),
-    answer: (answer) =>
+    answer: (answer) => {
+        // If answer correctly, set new score
+        const id = get().playState.selectedId!
+        checkAnswer(answer, id) ??
+            useResultStore.setState(
+                produce(({ result }) => {
+                    result.score += 1;
+                    result.answeredProvinces.push(id);
+                })
+            );
         set(
             produce((store) => {
                 store.playState = { ...defaultState };
             })
-        ), // Currently, after answer, either correct or incorrect, close the modal and reset playing state
+        );
+    },
 }));
 
 export default usePlayStateStore;
+
+const checkAnswer = (answer: string, selectedId: number): boolean =>
+    answer.toLowerCase() ===
+    Provinces.find((p) => p.id === selectedId)?.name.toLowerCase();
