@@ -1,35 +1,30 @@
 import { useRef } from "react";
 import Modal, { Styles } from "react-modal";
-import "./Modal.css";
-import { MousePosition, WindowDimensions } from "../../interfaces";
 import { QuestionModalHeight, QuestionModalWidth } from "../../data/const";
 import useWindowDimensions from "../../hooks/windowDimensions";
+import { MousePosition, WindowDimensions } from "../../interfaces";
+import usePlayStateStore from "../../stores/playStateStore";
+import "./Modal.css";
 
 Modal.setAppElement("#root");
 
-interface Props {
-    mousePosition: MousePosition | null;
-    isOpen: boolean;
-    closeModal: () => void;
-    checkAnswer: (answer: string) => void;
-}
-
-const QuestionModal = ({
-    mousePosition,
-    isOpen,
-    closeModal,
-    checkAnswer,
-}: Props) => {
+const QuestionModal = () => {
     const answerRef = useRef<HTMLInputElement>(null);
     const windowDim = useWindowDimensions();
-    // mousePosToModalStyle(mousePosition, windowDim)
+
+    const {
+        playState: { selectedId, mousePosition },
+        cancel,
+        answer,
+    } = usePlayStateStore();
+
 
     return (
         <Modal
-            isOpen={isOpen}
+            isOpen={selectedId !== null}
             style={mousePosToModalStyle(mousePosition, windowDim)}
             contentLabel="Example Modal"
-            onRequestClose={closeModal}
+            onRequestClose={cancel}
             shouldCloseOnOverlayClick={true}
             shouldCloseOnEsc={true}
             onAfterOpen={() => answerRef.current?.focus()}
@@ -40,12 +35,14 @@ const QuestionModal = ({
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    if (answerRef.current) checkAnswer(answerRef.current.value);
-                    closeModal();
+                    answer(answerRef.current!.value);
                 }}
             >
                 <input ref={answerRef} className="modal__input" />
-                <button type="submit" className="modal__button modal__button--question">
+                <button
+                    type="submit"
+                    className="modal__button modal__button--question"
+                >
                     Ok
                 </button>
             </form>
