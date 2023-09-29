@@ -1,5 +1,7 @@
 import start_arrow from "../../assets/start_arrow.svg";
 import Modal from "react-modal";
+import useGameStateStore from "../../stores/gameStateStore";
+import useResultStore from "../../stores/resultStore";
 
 Modal.setAppElement("#root");
 
@@ -11,15 +13,12 @@ const inCenter = {
     },
 };
 
-interface StartGameProps {
-    isOpen: boolean;
-    onStartGame: () => void;
-}
+const StartGameModal = () => {
+    const { gameState, startGame } = useGameStateStore();
 
-const StartGameModal = ({ isOpen, onStartGame }: StartGameProps) => {
     return (
         <Modal
-            isOpen={isOpen}
+            isOpen={gameState === "INTRO"}
             style={inCenter}
             contentLabel="Start Game Modal"
             shouldCloseOnOverlayClick={false}
@@ -38,7 +37,7 @@ const StartGameModal = ({ isOpen, onStartGame }: StartGameProps) => {
             </p>
             <button
                 className="modal__button modal__button--start"
-                onClick={onStartGame}
+                onClick={startGame}
             >
                 <span>Bắt Đầu</span>
                 <img
@@ -51,15 +50,13 @@ const StartGameModal = ({ isOpen, onStartGame }: StartGameProps) => {
     );
 };
 
-interface GameOverProps {
-    isOpen: boolean;
-    onStartGame: () => void;
-    score: number;
-}
-const GameOverModal = ({ isOpen, onStartGame, score }: GameOverProps) => {
+const GameOverModal = () => {
+    const { gameState, startGame } = useGameStateStore();
+    const {result: {score}, reset} = useResultStore();
+
     return (
         <Modal
-            isOpen={isOpen}
+            isOpen={gameState === "OVER"}
             style={inCenter}
             contentLabel="Game Over Modal"
             shouldCloseOnOverlayClick={false}
@@ -76,7 +73,10 @@ const GameOverModal = ({ isOpen, onStartGame, score }: GameOverProps) => {
             <p className="modal__rank">Xuất sắc</p>
             <button
                 className="modal__button modal__button--over"
-                onClick={onStartGame}
+                onClick={() => {
+                    reset();
+                    startGame();
+                }}
             >
                 <span>Chơi Lại</span>
                 <img
