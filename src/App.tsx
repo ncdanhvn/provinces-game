@@ -10,7 +10,6 @@ import { GameOverModal, StartGameModal } from "./components/Modal/MainModals";
 import useResultStore from "./stores/resultStore";
 import useGameStateStore from "./stores/gameStateStore";
 import usePlayStateStore from "./stores/playStateStore";
-import Provinces from "./data/provinces";
 
 function App() {
     const { gameState, startGame, finishGame } = useGameStateStore();
@@ -27,16 +26,7 @@ function App() {
                         <Map />
                     </TransformComponent>
                     <MapButtons />
-                    <QuestionModal
-                        isOpen={playState.selectedId !== null}
-                        mousePosition={playState.mousePosition}
-                        closeModal={cancelSelection}
-                        checkAnswer={(answer) => {
-                            if (checkAnswer(answer, playState.selectedId!))
-                                newScore(playState.selectedId!);
-                            cancelSelection();
-                        }}
-                    />
+                    <QuestionModal />
                     <StartGameModal
                         isOpen={gameState === "INTRO"}
                         onStartGame={startGame}
@@ -57,7 +47,3 @@ function App() {
 }
 
 export default App;
-
-const checkAnswer = (answer: string, selectedId: number): boolean =>
-    answer.toLowerCase() ===
-    Provinces.find((p) => p.id === selectedId)?.name.toLowerCase();

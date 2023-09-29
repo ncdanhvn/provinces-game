@@ -3,33 +3,30 @@ import Modal, { Styles } from "react-modal";
 import "./Modal.css";
 import { MousePosition, WindowDimensions } from "../../interfaces";
 import { QuestionModalHeight, QuestionModalWidth } from "../../data/const";
+import Provinces from "../../data/provinces";
 import useWindowDimensions from "../../hooks/windowDimensions";
+import usePlayStateStore from "../../stores/playStateStore";
+import useResultStore from "../../stores/resultStore";
 
 Modal.setAppElement("#root");
 
-interface Props {
-    mousePosition: MousePosition | null;
-    isOpen: boolean;
-    closeModal: () => void;
-    checkAnswer: (answer: string) => void;
-}
-
-const QuestionModal = ({
-    mousePosition,
-    isOpen,
-    closeModal,
-    checkAnswer,
-}: Props) => {
+const QuestionModal = () => {
     const answerRef = useRef<HTMLInputElement>(null);
     const windowDim = useWindowDimensions();
-    // mousePosToModalStyle(mousePosition, windowDim)
+
+    const {
+        playState: { selectedId, mousePosition },
+        cancel,
+    } = usePlayStateStore();
+
+    const newScore = useResultStore(({ newScore }) => newScore);
 
     return (
         <Modal
-            isOpen={isOpen}
+            isOpen={selectedId !== null}
             style={mousePosToModalStyle(mousePosition, windowDim)}
             contentLabel="Example Modal"
-            onRequestClose={closeModal}
+            onRequestClose={cancel}
             shouldCloseOnOverlayClick={true}
             shouldCloseOnEsc={true}
             onAfterOpen={() => answerRef.current?.focus()}
@@ -40,12 +37,16 @@ const QuestionModal = ({
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    if (answerRef.current) checkAnswer(answerRef.current.value);
-                    closeModal();
+                    checkAnswer(answerRef.current!.value, selectedId!) &&
+                        newScore(selectedId!);
+                    cancel()
                 }}
             >
                 <input ref={answerRef} className="modal__input" />
-                <button type="submit" className="modal__button modal__button--question">
+                <button
+                    type="submit"
+                    className="modal__button modal__button--question"
+                >
                     Ok
                 </button>
             </form>
@@ -54,6 +55,10 @@ const QuestionModal = ({
 };
 
 export default QuestionModal;
+
+const checkAnswer = (answer: string, selectedId: number): boolean =>
+    answer.toLowerCase() ===
+    Provinces.find((p) => p.id === selectedId)?.name.toLowerCase();
 
 const mousePosToModalStyle = (
     mousePos: MousePosition | null,
