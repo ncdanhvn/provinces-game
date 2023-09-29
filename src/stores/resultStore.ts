@@ -1,3 +1,4 @@
+import { produce } from "immer";
 import { create } from "zustand";
 
 interface Result {
@@ -14,22 +15,19 @@ interface ResultStore {
 const useResultStore = create<ResultStore>((set) => ({
     result: { score: 0, answeredProvinces: [] },
     newScore: (provinceId) =>
-        set(({result}) => ({
-            result: {
-                score: result.score + 1,
-                answeredProvinces: [
-                    ...result.answeredProvinces,
-                    provinceId,
-                ],
-            },
-        })),
+        set(
+            produce(({ result }) => {
+                result.score += 1;
+                result.answeredProvinces.push(provinceId);
+            })
+        ),
     reset: () =>
-        set(() => ({
-            result: {
-                score: 0,
-                answeredProvinces: [],
-            },
-        })),
+        set(
+            produce(({ result }) => {
+                result.score = 0;
+                result.answeredProvinces = [];
+            })
+        ),
 }));
 
-export default useResultStore
+export default useResultStore;

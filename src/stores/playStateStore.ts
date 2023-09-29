@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { MousePosition } from "../interfaces";
+import { produce } from "immer";
 
 interface PlayState {
     selectedId: number | null;
@@ -23,15 +24,27 @@ interface PlayStateStore {
 const usePlayStateStore = create<PlayStateStore>((set, get) => ({
     playState: { ...defaultState },
     select: (id, mousePos) =>
-        set(() => ({
-            playState: {
-                selectedId: id,
-                mousePosition: mousePos,
-                answer: null,
-            },
-        })),
-    cancel: () => set(() => ({ playState: { ...defaultState } })),
-    answer: (answer) => set(() => ({ playState: { ...defaultState } })),    // Currently, after answer, either correct or incorrect, close the modal and reset playing state
+        set(
+            produce((store) => {
+                store.playState = {
+                    selectedId: id,
+                    mousePosition: mousePos,
+                    answer: null,
+                };
+            })
+        ),
+    cancel: () =>
+        set(
+            produce((store) => {
+                store.playState = { ...defaultState };
+            })
+        ),
+    answer: (answer) =>
+        set(
+            produce((store) => {
+                store.playState = { ...defaultState };
+            })
+        ), // Currently, after answer, either correct or incorrect, close the modal and reset playing state
 }));
 
 export default usePlayStateStore;
