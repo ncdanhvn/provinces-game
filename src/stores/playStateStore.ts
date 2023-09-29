@@ -43,8 +43,8 @@ const usePlayStateStore = create<PlayStateStore>((set, get) => ({
         ),
     answer: (answer) => {
         // If answer correctly, set new score
-        const id = get().playState.selectedId!
-        checkAnswer(answer, id) ??
+        const id = get().playState.selectedId!;
+        if (checkAnswer(answer, id))
             useResultStore.setState(
                 produce(({ result }) => {
                     result.score += 1;

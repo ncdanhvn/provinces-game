@@ -3,12 +3,11 @@ import { RxLapTimer } from "react-icons/rx";
 import useGameStateStore from "../stores/gameStateStore";
 import usePlayStateStore from "../stores/playStateStore";
 
-const TimeTotal = 5; // in minute
+const TimeTotal = 0.5; // in minute
 
 const Timer = () => {
     const gameState = useGameStateStore(({gameState}) => gameState)
     const finishGame = useGameStateStore(({finishGame}) => finishGame)
-    const cancelSelection = usePlayStateStore(({cancel}) => cancel)
     const [count, setCount] = useState(0);
     const segmentTime = TimeTotal * 60 * 100;
 
@@ -22,7 +21,6 @@ const Timer = () => {
                 }, segmentTime);
             } else {
                 setCount(0)
-                cancelSelection();
                 finishGame();
             }
     }, [count, gameState]);

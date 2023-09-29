@@ -1,12 +1,10 @@
 import { useRef } from "react";
 import Modal, { Styles } from "react-modal";
-import "./Modal.css";
-import { MousePosition, WindowDimensions } from "../../interfaces";
 import { QuestionModalHeight, QuestionModalWidth } from "../../data/const";
-import Provinces from "../../data/provinces";
 import useWindowDimensions from "../../hooks/windowDimensions";
+import { MousePosition, WindowDimensions } from "../../interfaces";
 import usePlayStateStore from "../../stores/playStateStore";
-import useResultStore from "../../stores/resultStore";
+import "./Modal.css";
 
 Modal.setAppElement("#root");
 
@@ -17,9 +15,9 @@ const QuestionModal = () => {
     const {
         playState: { selectedId, mousePosition },
         cancel,
+        answer,
     } = usePlayStateStore();
 
-    const newScore = useResultStore(({ newScore }) => newScore);
 
     return (
         <Modal
@@ -37,9 +35,7 @@ const QuestionModal = () => {
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    checkAnswer(answerRef.current!.value, selectedId!) &&
-                        newScore(selectedId!);
-                    cancel()
+                    answer(answerRef.current!.value);
                 }}
             >
                 <input ref={answerRef} className="modal__input" />
@@ -55,10 +51,6 @@ const QuestionModal = () => {
 };
 
 export default QuestionModal;
-
-const checkAnswer = (answer: string, selectedId: number): boolean =>
-    answer.toLowerCase() ===
-    Provinces.find((p) => p.id === selectedId)?.name.toLowerCase();
 
 const mousePosToModalStyle = (
     mousePos: MousePosition | null,

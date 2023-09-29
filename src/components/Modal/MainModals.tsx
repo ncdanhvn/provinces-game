@@ -1,5 +1,5 @@
-import start_arrow from "../../assets/start_arrow.svg";
 import Modal from "react-modal";
+import start_arrow from "../../assets/start_arrow.svg";
 import useGameStateStore from "../../stores/gameStateStore";
 import useResultStore from "../../stores/resultStore";
 
@@ -52,7 +52,7 @@ const StartGameModal = () => {
 
 const GameOverModal = () => {
     const { gameState, startGame } = useGameStateStore();
-    const {result: {score}, reset} = useResultStore();
+    const score = useResultStore(({result}) => result.score)
 
     return (
         <Modal
@@ -73,10 +73,7 @@ const GameOverModal = () => {
             <p className="modal__rank">Xuất sắc</p>
             <button
                 className="modal__button modal__button--over"
-                onClick={() => {
-                    reset();
-                    startGame();
-                }}
+                onClick={startGame}
             >
                 <span>Chơi Lại</span>
                 <img
@@ -89,4 +86,5 @@ const GameOverModal = () => {
     );
 };
 
-export { StartGameModal, GameOverModal };
+export { GameOverModal, StartGameModal };
+
