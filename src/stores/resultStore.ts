@@ -14,11 +14,11 @@ interface ResultStore {
 const useResultStore = create<ResultStore>((set) => ({
     result: { score: 0, answeredProvinces: [] },
     newScore: (provinceId) =>
-        set((store) => ({
+        set(({result}) => ({
             result: {
-                score: store.result.score + 1,
+                score: result.score + 1,
                 answeredProvinces: [
-                    ...store.result.answeredProvinces,
+                    ...result.answeredProvinces,
                     provinceId,
                 ],
             },

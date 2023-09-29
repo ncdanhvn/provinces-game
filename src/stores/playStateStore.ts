@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { MousePosition } from "../interfaces";
 import Provinces from "../data/provinces";
-import useResultStore from "./resultStore";
 
 interface PlayState {
     selectedId: number | null;
@@ -22,10 +21,8 @@ interface PlayStateStore {
     answer: (answer: string) => void;
 }
 
-const newScore = useResultStore((result) => result.newScore);
-
 const usePlayStateStore = create<PlayStateStore>((set, get) => ({
-    playState: { selectedId: null, answer: null, mousePosition: null },
+    playState: { ...defaultState },
     select: (id, mousePos) =>
         set(() => ({
             playState: {
@@ -34,25 +31,12 @@ const usePlayStateStore = create<PlayStateStore>((set, get) => ({
                 answer: null,
             },
         })),
-    cancel: () =>
-        set(() => ({
-            playState: {
-                ...defaultState,
-            },
-        })),
-    answer: (answer) => {
-        const id = get().playState.selectedId!;
-        if (checkAnswer(answer, id)) newScore(id);
-        set(() => ({
-            playState: {
-                ...defaultState,
-            },
-        }));
-    },
+    cancel: () => set(() => ({ playState: { ...defaultState } })),
+    answer: (answer) => set(() => ({ playState: { ...defaultState } })),    // Currently, after answer, either correct or incorrect, close the modal and reset playing state
 }));
 
-export default usePlayStateStore
+export default usePlayStateStore;
 
-const checkAnswer = (answer: string, selectedId: number): boolean =>
-    answer.toLowerCase() ===
-    Provinces.find((p) => p.id === selectedId)?.name.toLowerCase();
+// const checkAnswer = (answer: string, selectedId: number): boolean =>
+//     answer.toLowerCase() ===
+//     Provinces.find((p) => p.id === selectedId)?.name.toLowerCase();
