@@ -1,4 +1,3 @@
-import { useReducer } from "react";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import "./App.css";
 import Map from "./components/Map";
@@ -7,72 +6,66 @@ import QuestionModal from "./components/Modal/QuestionModal";
 import Score from "./components/Score";
 import Timer from "./components/Timer";
 import Wrapper from "./components/Wrapper";
-import gameReducer from "./reducers/gameStates";
 import { GameOverModal, StartGameModal } from "./components/Modal/MainModals";
+import useResultStore from "./stores/resultStore";
+import useGameStateStore from "./stores/gameStateStore";
+import usePlayStateStore from "./stores/playStateStore";
+import Provinces from "./data/provinces";
 
-const TimeTotal = 5;    // in minute
-
-export interface Province {
-    id: number;
-    name: string;
-}
+const TimeTotal = 5; // in minute
 
 function App() {
-    const [state, dispatch] = useReducer(gameReducer, {
-        state: "INTRO",
-        isOpenModal: false,
-        selectedId: null,
-        answeredProvinces: [],
-        score: 0,
-        answerResult: null,
-        mousePosition: null,
-    });
-
-    const newScore = () => {
-        console.log("Well done, score: ", newScore);
-    };
-
-    const failAttemp = () => {
-        console.log("Wrong answer, try again!");
-    };
+    const { gameState, startGame, finishGame } = useGameStateStore();
+    const { playState, select, cancel: cancelSelection } = usePlayStateStore();
+    const { result, reset: resetScore, newScore } = useResultStore();
 
     return (
         <>
             <Wrapper>
-                <Score score={state.score} />
+                <Score score={result.score} />
                 <Timer
                     timeTotal={TimeTotal}
-                    timeUp={() => dispatch({ type: "END" })}
-                    isEnableTimer={state.state === "RUNNING"}
+                    timeUp={() => {
+                        // Cancel the current selection (if any), then change game state to over
+                        cancelSelection();
+                        finishGame();
+                    }}
+                    isEnableTimer={gameState === "RUNNING"}
                 />
                 <TransformWrapper>
                     <TransformComponent>
                         <Map
                             onClick={(clickData) =>
-                                dispatch({ type: "SELECT", clickData })
+                                select(clickData.id, clickData.position)
                             }
-                            answeredProvinces={state.answeredProvinces}
-                            selectedId={state.selectedId}
-                            isHighlight={state.isOpenModal}
+                            answeredProvinces={result.answeredProvinces}
+                            selectedId={playState.selectedId}
+                            isHighlight={playState.selectedId !== null}
                         />
                     </TransformComponent>
                     <MapButtons />
                     <QuestionModal
-                        isOpen={state.isOpenModal}
-                        mousePosition={state.mousePosition}
-                        closeModal={() => dispatch({ type: "CLOSE" })}
-                        checkAnswer={(answer) =>
-                            dispatch({ type: "ANSWER", answer })
-                        }
+                        isOpen={playState.selectedId !== null}
+                        mousePosition={playState.mousePosition}
+                        closeModal={cancelSelection}
+                        checkAnswer={(answer) => {
+                            if (checkAnswer(answer, playState.selectedId!))
+                                newScore(playState.selectedId!);
+                            cancelSelection();
+                        }}
                     />
                     <StartGameModal
-                        isOpen={state.state === "INTRO"}
-                        onStartGame={() => dispatch({ type: "START" })}
+                        isOpen={gameState === "INTRO"}
+                        onStartGame={startGame}
                     />
                     <GameOverModal
-                        isOpen={state.state === "OVER"}
-                        onStartGame={() => dispatch({ type: "START" })}
-                        score={state.score}
+                        isOpen={gameState === "OVER"}
+                        onStartGame={() => {
+                            // Reset score and start new game
+                            resetScore();
+                            startGame();
+                        }}
+                        score={result.score}
                     />
                 </TransformWrapper>
             </Wrapper>
@@ -81,3 +74,7 @@ function App() {
 }
 
 export default App;
+
+const checkAnswer = (answer: string, selectedId: number): boolean =>
+    answer.toLowerCase() ===
+    Provinces.find((p) => p.id === selectedId)?.name.toLowerCase();
