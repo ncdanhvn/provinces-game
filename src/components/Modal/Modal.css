@@ -183,3 +183,16 @@
     font-weight: 600;
     transform: translateY(2px);
 }
+
+#tooltip {
+    position: absolute;
+    z-index: 7;
+    visibility: hidden;
+    padding: 8px 10px 4px 10px;
+}
+
+#tooltip.tooltip {
+    color: rgba(188, 75, 81, 0.9);
+    font-size: 14px;
+    font-weight: 500;
+}
