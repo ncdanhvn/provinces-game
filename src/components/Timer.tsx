@@ -6,24 +6,23 @@ import usePlayStateStore from "../stores/playStateStore";
 const TimeTotal = 0.5; // in minute
 
 const Timer = () => {
-    const gameState = useGameStateStore(({gameState}) => gameState)
-    const finishGame = useGameStateStore(({finishGame}) => finishGame)
-    const [count, setCount] = useState(0);
+    const gameState = useGameStateStore(({ gameState }) => gameState);
+    const finishGame = useGameStateStore(({ finishGame }) => finishGame);
+    const [count, setCount] = useState(-1);
     const segmentTime = TimeTotal * 60 * 100;
 
     useEffect(() => {
-        if (gameState === "RUNNING")
-            if (count < 10) {
-                if (count === 0) console.log("Timer start");
-                setTimeout(() => {
-                    setCount(count + 1);
-                    // console.log(count + 1);
-                }, segmentTime);
-            } else {
-                setCount(0)
-                finishGame();
-            }
-    }, [count, gameState]);
+        if (gameState === "RUNNING") setCount(0);
+    }, [gameState]);
+
+    useEffect(() => {
+        if (0 <= count && count < 10) {
+            if (count === 0) console.log("Timer start");
+            setTimeout(() => {
+                setCount(count + 1);
+            }, segmentTime);
+        } else if (count === 10) finishGame();
+    }, [count]);
 
     return (
         <div className="timer-box">
