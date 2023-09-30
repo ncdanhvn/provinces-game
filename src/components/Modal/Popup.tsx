@@ -3,7 +3,7 @@ import checkIcon from "../../assets/check_icon.svg";
 import usePlayStateStore from "../../stores/playStateStore";
 import "./Modal.css";
 
-const TimeOut = 2; // in second
+const TimeOut = 3; // in second
 
 const Popup = () => {
     const popupMessage = usePlayStateStore(
