@@ -23,24 +23,24 @@
 
 .modal__question {
     margin: 0;
-    font-weight: 600;
-    font-size: 24px;
+    font-weight: 500;
+    font-size: 23px;
     line-height: 26px;
     color: var(--modal-title);
 }
 
 .modal__input {
-    margin: 22px auto 0 auto;
+    margin: 26px auto 0 auto;
     display: block;
-    width: 150px;
+    width: 200px;
 
     border: none;
     border-bottom: 1px solid #bccab0;
     outline: none;
 
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
+    font-family: "Grandstander", Arial, Helvetica, sans-serif;
+    font-size: 24px;
     color: var(--modal-text);
 }
 
