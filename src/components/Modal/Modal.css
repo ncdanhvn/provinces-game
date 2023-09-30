@@ -17,6 +17,10 @@
 }
 
 /* For question modal  */
+.modal--question {
+    width: 326px;
+}
+
 .modal__question {
     margin: 0;
     font-weight: 600;

@@ -3,7 +3,7 @@ import { create } from "zustand";
 import Provinces from "../data/provinces";
 import { MousePosition } from "../interfaces";
 import useResultStore from "./resultStore";
-import { Congratulation, TryAgain } from "../data/messages";
+import { Congratulation, FirstTimeMessage, TryAgain } from "../data/messages";
 
 interface PlayState {
     selectedId: number | null;
@@ -30,7 +30,7 @@ interface PlayStateStore {
 }
 
 const usePlayStateStore = create<PlayStateStore>((set, get) => ({
-    playState: { ...defaultState },
+    playState: { ...defaultState, retryMessage: FirstTimeMessage },
     select: (id, mousePos) =>
         set(
             produce(({ playState }) => {
