@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
     "immer": "^10.0.2",
     "normal-distribution": "^1.1.1",
     "react": "^18.2.0",

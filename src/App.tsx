@@ -1,5 +1,6 @@
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import "./App.css";
+import 'animate.css';
 import Map from "./components/Map";
 import MapButtons from "./components/MapButtons";
 import { GameOverModal, StartGameModal } from "./components/Modal/MainModals";

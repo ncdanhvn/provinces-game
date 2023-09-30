@@ -27,7 +27,7 @@ const QuestionModal = () => {
             shouldCloseOnOverlayClick={true}
             shouldCloseOnEsc={true}
             onAfterOpen={() => answerRef.current?.focus()}
-            className="modal modal--main modal--question"
+            className="modal modal--main modal--question animate__animated animate__fadeIn"
             overlayClassName="overlay"
         >
             <h3 className="modal__question">Tỉnh thành nào đây?</h3>
