@@ -1,9 +1,11 @@
+import { MouseEvent } from "react";
 import paths from "../../data/paths";
 import Provinces from "../../data/provinces";
 import { MousePosition } from "../../interfaces";
 import usePlayStateStore from "../../stores/playStateStore";
 import useResultStore from "../../stores/resultStore";
 import "./Map.css";
+import { MapHeight, MapWidth } from "../../data/const";
 
 const Map = () => {
     const answeredProvinces = useResultStore(
@@ -27,13 +29,12 @@ const Map = () => {
     ): boolean =>
         oldPosition.x === newPosition.x && oldPosition.y === newPosition.y;
 
-    const onMouseOver = (i: number): void => {
+    const onMouseOver = (i: number, e: MouseEvent<SVGPathElement>): void => {
         // Set text then visible
-        let text = "?";
-        if (answeredProvinces.includes(i))
-            text = Provinces.find((p) => p.id === i)?.name!;
-
-        setTooltipOn(text);
+        if (answeredProvinces.includes(i)) {
+            const text = Provinces.find((p) => p.id === i)?.name!;
+            setTooltipOn(text, { x: e.clientX, y: e.clientY });
+        }
     };
     return (
         <svg
@@ -62,7 +63,7 @@ const Map = () => {
                         )
                             select(i, MouseDownPosition);
                     }}
-                    onMouseOver={() => onMouseOver(i)}
+                    onMouseOver={(e) => onMouseOver(i, e)}
                     onMouseLeave={() => setTooltipOff()}
                 ></path>
             ))}
@@ -72,13 +73,26 @@ const Map = () => {
 
 export default Map;
 
-const setTooltipOn = (text: string): void => {
+const setTooltipOn = (text: string, mousePos: MousePosition): void => {
     const tooltip = document.getElementById("tooltip")!;
     tooltip.innerHTML = text;
     tooltip.style.visibility = "visible";
+    tooltip.style.top = `${getMapPos(mousePos).y}px`;
+    tooltip.style.left = `${getMapPos(mousePos).x}px`;
 };
 
 const setTooltipOff = (): void => {
     const tooltip = document.getElementById("tooltip")!;
     tooltip.style.visibility = "hidden";
+};
+
+const getMapPos = (windowPos: MousePosition): MousePosition => {
+    const { innerWidth: width, innerHeight: height } = window;
+    let mapPosX = Math.floor(windowPos.x - (width - MapWidth) / 2);
+    if (mapPosX < 0) mapPosX = 0;
+    mapPosX += 8;
+    let mapPosY = Math.floor(windowPos.y - (height - MapHeight) / 2);
+    if (mapPosY < 0) mapPosY = 0;
+    mapPosY += 8;
+    return { x: mapPosX, y: mapPosY };
 };
