@@ -26,7 +26,7 @@ const StartGameModal = () => {
             contentLabel="Start Game Modal"
             shouldCloseOnOverlayClick={false}
             shouldCloseOnEsc={false}
-            className="modal modal--main modal--start"
+            className="modal modal--main modal--start animate__animated animate__fadeIn"
             overlayClassName="overlay"
         >
             <div className="modal__title">Cách chơi</div>
@@ -67,7 +67,7 @@ const GameOverModal = () => {
             contentLabel="Game Over Modal"
             shouldCloseOnOverlayClick={false}
             shouldCloseOnEsc={false}
-            className="modal modal--main modal--start"
+            className="modal modal--main modal--start animate__animated animate__fadeIn"
             overlayClassName="overlay"
         >
             <div className="modal__title">Game Over</div>
