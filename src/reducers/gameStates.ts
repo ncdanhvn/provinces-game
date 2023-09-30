@@ -1,10 +1,6 @@
 import provinces from "../data/provinces";
 import { ClickData, MousePosition } from "../interfaces";
 
-const checkAnswer = (answer: string, selectedId: number): boolean =>
-    answer.toLowerCase() ===
-    provinces.find((p) => p.id === selectedId)?.name.toLowerCase();
-
 interface GameState {
     state: "INTRO" | "RUNNING" | "OVER";
     isOpenModal: boolean;
@@ -13,6 +9,8 @@ interface GameState {
     score: number;
     answerResult: boolean | null;
     mousePosition: MousePosition | null; // Position of mouse when click map province
+    isRetry: boolean | null;
+    isPopup: boolean | null;
 }
 
 interface StartGame {
@@ -33,11 +31,15 @@ interface CloseModal {
     type: "CLOSE";
 }
 
+interface ClosePopup {
+    type: "CLOSE_POPUP";
+}
+
 interface EndGame {
     type: "END";
 }
 
-type GameAction = StartGame | SelectProvince | Answer | CloseModal | EndGame;
+type GameAction = StartGame | SelectProvince | Answer | CloseModal | ClosePopup | EndGame;
 
 const gameReducer = (state: GameState, action: GameAction): GameState => {
     switch (action.type) {
@@ -58,20 +60,25 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
                       mousePosition: action.clickData.position,
                   };
         case "ANSWER":
-            return checkAnswer(action.answer, state.selectedId!)
-                ? {
-                      ...state,
-                      isOpenModal: false,
-                      selectedId: null,
-                      answeredProvinces: [
-                          ...state.answeredProvinces,
-                          state.selectedId!,
-                      ],
-                      score: state.score + 1,
-                      answerResult: true,
-                      mousePosition: null,
-                  }
-                : { ...state, answerResult: false };
+            if (checkAnswer(action.answer, state.selectedId!))
+                return {
+                    ...state,
+                    isOpenModal: false,
+                    selectedId: null,
+                    answeredProvinces: [
+                        ...state.answeredProvinces,
+                        state.selectedId!,
+                    ],
+                    score: state.score + 1,
+                    answerResult: true,
+                    mousePosition: null,
+                    isRetry: false,
+                    isPopup: true,
+                };            
+
+            // Answer wrong
+            onIncorrect();
+            return { ...state, answerResult: false, isRetry: true };
         case "CLOSE":
             return {
                 ...state,
@@ -79,7 +86,13 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
                 selectedId: null,
                 answerResult: null,
                 mousePosition: null,
+                isRetry: false,
             };
+        case "CLOSE_POPUP":
+            return {
+                ...state,
+                isPopup: false,
+            };            
         case "END":
             return {
                 ...state,
@@ -88,8 +101,28 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
                 selectedId: null,
                 answerResult: null,
                 mousePosition: null,
+                isRetry: null,
+                isPopup: null,
             };
     }
 };
 
 export default gameReducer;
+
+const checkAnswer = (answer: string, selectedId: number): boolean =>
+    answer.toLowerCase() ===
+    provinces.find((p) => p.id === selectedId)?.name.toLowerCase();
+
+const onIncorrect = () => {
+    const questionModal = document.querySelector(".modal--question");
+
+    questionModal!.classList.remove("modal--on-answer-wrong"); // reset animation
+    setTimeout(
+        () => questionModal!.classList.add("modal--on-answer-wrong"),
+        100
+    );
+
+    // refocus input field
+    const modalInput = document.querySelector(".modal__input") as HTMLElement;
+    modalInput.focus();
+};

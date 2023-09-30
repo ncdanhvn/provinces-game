@@ -49,7 +49,7 @@
     font-weight: 600;
     line-height: 22px;
     color: var(--modal-button-text);
-    
+
     cursor: pointer;
 }
 
@@ -67,7 +67,7 @@
 .modal__title {
     color: rgba(188, 75, 81, 0.9);
     font-size: 28px;
-    font-weight: 600;    
+    font-weight: 600;
     margin-bottom: 20px;
 }
 
@@ -132,4 +132,48 @@
     height: 100%;
     background: rgba(255, 255, 255, 0.15);
     /* backdrop-filter: blur(1px); */
+}
+
+/* To animate modal when answer wrong */
+.modal--on-answer-wrong {
+    animation: shake 0.35s ease-in-out;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(10px);
+    }
+    50% {
+        transform: translateX(-7px);
+    }
+    75% {
+        transform: translateX(2px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* POPUP styles */
+.modal--popup {
+    font-size: 16px;
+    color: var(--modal-button-text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 16px;
+
+    top: 14%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.modal__popup-message {
+    margin-left: 4px;
+    font-weight: 600;
+    transform: translateY(2px);
 }

@@ -7,12 +7,15 @@ import QuestionModal from "./components/Modal/QuestionModal";
 import Score from "./components/Score";
 import Timer from "./components/Timer";
 import Wrapper from "./components/Wrapper";
+import Popup from "./components/Modal/Popup";
+
 
 function App() {
     return (
         <Wrapper>
             <Score />
             <Timer />
+            <Popup />
             <TransformWrapper>
                 <TransformComponent>
                     <Map />

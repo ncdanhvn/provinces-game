@@ -1,5 +1,6 @@
 import Modal from "react-modal";
 import start_arrow from "../../assets/start_arrow.svg";
+import './Modal.css'
 import useGameStateStore from "../../stores/gameStateStore";
 import useResultStore from "../../stores/resultStore";
 

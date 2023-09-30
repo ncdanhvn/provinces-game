@@ -13,7 +13,7 @@ const QuestionModal = () => {
     const windowDim = useWindowDimensions();
 
     const {
-        playState: { selectedId, mousePosition },
+        playState: { selectedId, mousePosition, retryMessage },
         cancel,
         answer,
     } = usePlayStateStore();
@@ -23,19 +23,21 @@ const QuestionModal = () => {
         <Modal
             isOpen={selectedId !== null}
             style={mousePosToModalStyle(mousePosition, windowDim)}
-            contentLabel="Example Modal"
+            contentLabel="Question Modal"
             onRequestClose={cancel}
             shouldCloseOnOverlayClick={true}
             shouldCloseOnEsc={true}
             onAfterOpen={() => answerRef.current?.focus()}
-            className="modal modal--main"
+            className="modal modal--main modal--question"
             overlayClassName="overlay"
         >
             <h3 className="modal__question">Tỉnh thành nào đây?</h3>
+            { retryMessage && <p className="modal__p">{retryMessage}</p>}
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    answer(answerRef.current!.value);
+                    const answerValue = answerRef.current!.value.trim();
+                    answerValue ? answer(answerValue) : cancel();
                 }}
             >
                 <input ref={answerRef} className="modal__input" />
