@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { RxLapTimer } from "react-icons/rx";
 import useGameStateStore from "../stores/gameStateStore";
-import usePlayStateStore from "../stores/playStateStore";
 
-const TimeTotal = 0.5; // in minute
+const TimeTotal = 5; // in minute
 
 const Timer = () => {
     const gameState = useGameStateStore(({ gameState }) => gameState);
