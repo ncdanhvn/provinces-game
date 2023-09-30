@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "immer": "^10.0.2",
+    "normal-distribution": "^1.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.9.0",

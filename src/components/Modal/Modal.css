@@ -79,7 +79,8 @@
     color: #5b8e7d;
     font-size: 20px;
     line-height: 24px;
-    margin: 12px 0;
+    margin-top: 4px;
+    margin-bottom: 0px;
 }
 
 .modal__p--start {

@@ -1,8 +1,10 @@
+import NormalDistribution from "normal-distribution";
 import Modal from "react-modal";
 import start_arrow from "../../assets/start_arrow.svg";
-import './Modal.css'
 import useGameStateStore from "../../stores/gameStateStore";
 import useResultStore from "../../stores/resultStore";
+import "./Modal.css";
+import Ranks from "../../data/ranks";
 
 Modal.setAppElement("#root");
 
@@ -51,9 +53,12 @@ const StartGameModal = () => {
     );
 };
 
+const normDist = new NormalDistribution(10, 8);
+
 const GameOverModal = () => {
     const { gameState, startGame } = useGameStateStore();
-    const score = useResultStore(({result}) => result.score)
+    const score = useResultStore(({ result }) => result.score);
+    const rank = Ranks.find((r) => score >= r.score)?.title;
 
     return (
         <Modal
@@ -68,10 +73,21 @@ const GameOverModal = () => {
             <div className="modal__title">Game Over</div>
             <p className="modal__p modal__p--start">
                 Bạn đúng <span className="modal__highlight">{score}/63 </span>
-                tỉnh thành. Chúc mừng bạn lọt
-                <span className="modal__highlight"> Top 20% </span>
+                tỉnh thành.
             </p>
-            <p className="modal__rank">Xuất sắc</p>
+            {score > 0 && (
+                <p className="modal__p modal__p--start">
+                    Bạn xuất sắc hơn{" "}
+                    <span className="modal__highlight">
+                        {Math.floor(
+                            (normDist.cdf(score) + Number.EPSILON) * 10000
+                        ) / 100}
+                        %
+                    </span>{" "}
+                    người chơi.
+                </p>
+            )}
+            <p className="modal__rank">{rank}</p>
             <button
                 className="modal__button modal__button--over"
                 onClick={startGame}
@@ -88,4 +104,3 @@ const GameOverModal = () => {
 };
 
 export { GameOverModal, StartGameModal };
-
