@@ -16,6 +16,7 @@
 .not-answered {
     fill: var(--background);
     cursor: pointer;
+    transition: fill 0.1s;
 }
 
 .answered {
