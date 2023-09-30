@@ -1,4 +1,5 @@
 import paths from "../../data/paths";
+import Provinces from "../../data/provinces";
 import { MousePosition } from "../../interfaces";
 import usePlayStateStore from "../../stores/playStateStore";
 import useResultStore from "../../stores/resultStore";
@@ -26,6 +27,14 @@ const Map = () => {
     ): boolean =>
         oldPosition.x === newPosition.x && oldPosition.y === newPosition.y;
 
+    const onMouseOver = (i: number): void => {
+        // Set text then visible
+        let text = "?";
+        if (answeredProvinces.includes(i))
+            text = Provinces.find((p) => p.id === i)?.name!;
+
+        setTooltipOn(text);
+    };
     return (
         <svg
             width="768"
@@ -53,10 +62,23 @@ const Map = () => {
                         )
                             select(i, MouseDownPosition);
                     }}
-                />
+                    onMouseOver={() => onMouseOver(i)}
+                    onMouseLeave={() => setTooltipOff()}
+                ></path>
             ))}
         </svg>
     );
 };
 
 export default Map;
+
+const setTooltipOn = (text: string): void => {
+    const tooltip = document.getElementById("tooltip")!;
+    tooltip.innerHTML = text;
+    tooltip.style.visibility = "visible";
+};
+
+const setTooltipOff = (): void => {
+    const tooltip = document.getElementById("tooltip")!;
+    tooltip.style.visibility = "hidden";
+};

@@ -1,33 +1,39 @@
 .vn-map {
-  position: relative;
-  top: 15px;
-  left: 0;
-  z-index: 5;
-  filter: drop-shadow(1px 3px 1px rgba(0, 0, 0, 0.25));
+    position: relative;
+    top: 15px;
+    left: 0;
+    z-index: 5;
+    filter: drop-shadow(1px 3px 1px rgba(0, 0, 0, 0.25));
 }
 
 .svg-path {
-  stroke: white;
-  stroke-width: 0.5px;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+    stroke: white;
+    stroke-width: 0.5px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .not-answered {
-  fill: var(--background);
-  cursor: pointer;
+    fill: var(--background);
+    cursor: pointer;
 }
 
 .answered {
-  fill: var(--primary);
+    fill: var(--primary);
 }
 
 .highlighted {
-  fill: var(--secondary);
-  box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.25);
+    fill: var(--secondary);
+    box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.25);
 }
 
 .not-answered:hover {
-  fill: var(--secondary);
-  box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.25);
+    fill: var(--secondary);
+    box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.25);
+}
+
+#tooltip {
+    position: absolute;
+    z-index: 7;
+    visibility: hidden;
 }

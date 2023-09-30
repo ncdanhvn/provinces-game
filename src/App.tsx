@@ -8,6 +8,7 @@ import Score from "./components/Score";
 import Timer from "./components/Timer";
 import Wrapper from "./components/Wrapper";
 import Popup from "./components/Modal/Popup";
+import Tooltip from "./components/Tooltip";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Score />
             <Timer />
             <Popup />
+            <Tooltip />
             <TransformWrapper>
                 <TransformComponent>
                     <Map />
