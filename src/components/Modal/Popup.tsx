@@ -5,6 +5,8 @@ import "./Modal.css";
 
 const TimeOut = 5; // in second
 
+let setClosePopup: number | null = null;
+
 const Popup = () => {
     const popupMessage = usePlayStateStore(
         ({ playState }) => playState.popupMessage
@@ -12,7 +14,12 @@ const Popup = () => {
     const closePopup = usePlayStateStore((store) => store.closePopup);
 
     useEffect(() => {
-        if (popupMessage !== null) setTimeout(closePopup, TimeOut * 1000);
+        if (popupMessage !== null) {
+            if (setClosePopup !== null) {
+                clearTimeout(setClosePopup);
+            }
+            setClosePopup = setTimeout(closePopup, TimeOut * 1000);
+        }
     }, [popupMessage]);
 
     return (
