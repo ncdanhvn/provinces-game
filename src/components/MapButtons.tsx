@@ -26,6 +26,7 @@ const MapButtons = () => {
         onClick={() => console.log("Click info button")}
       >
         <IoInformationSharp className="map-buttons-icon info-button-icon" />
+        <div className="info-popup">Info</div>
       </div>
     </>
   );
