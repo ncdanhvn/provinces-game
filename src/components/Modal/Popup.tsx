@@ -5,7 +5,7 @@ import "./Modal.css";
 
 const TimeOut = 5; // in second
 
-let setClosePopup: number | null = null;
+let setClosePopup: number | undefined = undefined;
 
 const Popup = () => {
     const popupMessage = usePlayStateStore(
@@ -15,9 +15,7 @@ const Popup = () => {
 
     useEffect(() => {
         if (popupMessage !== null) {
-            if (setClosePopup !== null) {
-                clearTimeout(setClosePopup);
-            }
+            clearTimeout(setClosePopup);
             setClosePopup = setTimeout(closePopup, TimeOut * 1000);
         }
     }, [popupMessage]);
@@ -25,9 +23,13 @@ const Popup = () => {
     return (
         <>
             {popupMessage && (
-                <div className="modal modal--popup">
-                    <img src={checkIcon} alt="Check_icon" />
-                    <span className="modal__popup-message">{popupMessage}</span>
+                <div className="animate__animated animate__bounceIn modal--popup__wrapper">
+                    <div className="modal modal--popup">
+                        <img src={checkIcon} alt="Check_icon" />
+                        <span className="modal__popup-message">
+                            {popupMessage}
+                        </span>
+                    </div>
                 </div>
             )}
         </>

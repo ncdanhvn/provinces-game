@@ -175,10 +175,14 @@
     padding: 6px 16px;
     box-shadow: 3px 6px 4px rgba(0, 0, 0, 0.25);
 
-    top: 14%;
+    top: 120px;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 10;
+}
+
+.modal--popup__wrapper {
+    z-index: 20;
+    position: relative;
 }
 
 .modal__popup-message {
