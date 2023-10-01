@@ -106,7 +106,7 @@ body {
 .score {
     position: absolute;
     top: 7px;
-    left: 15px;
+    right: 124px;
 
     width: 45px;
     height: 45px;
