@@ -62,7 +62,10 @@ const usePlayStateStore = create<PlayStateStore>((set, get) => ({
                 produce((store) => {
                     store.playState = {
                         ...defaultState,
-                        popupMessage: getPopupMessage(),
+                        popupMessage: getMessage(
+                            Congratulation,
+                            store.playState.popupMessage
+                        ),
                     };
                 })
             );
@@ -70,7 +73,10 @@ const usePlayStateStore = create<PlayStateStore>((set, get) => ({
             onIncorrect();
             set(
                 produce(({ playState }) => {
-                    playState.retryMessage = getRetryMessage();
+                    playState.retryMessage = getMessage(
+                        TryAgain,
+                        playState.retryMessage
+                    );
                 })
             );
         }
@@ -104,11 +110,14 @@ const onIncorrect = () => {
     modalInput.focus();
 };
 
-const getRetryMessage = (): string | null => {
-    // if (firstTime) return FirstTimeMessage
-    return TryAgain[Math.floor(Math.random() * TryAgain.length)];
-};
+const getMessage = (
+    messages: string[],
+    previousMessage: string | null
+): string => {
+    let message = previousMessage;
+    while (message === previousMessage) {
+        message = messages[Math.floor(Math.random() * messages.length)];
+    }
 
-const getPopupMessage = (): string | null => {
-    return Congratulation[Math.floor(Math.random() * Congratulation.length)];
+    return message!;
 };
