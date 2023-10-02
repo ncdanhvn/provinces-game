@@ -1,9 +1,13 @@
 import infoIcon from "../../assets/info.svg";
 import link from "../../assets/link.svg";
 
-const InfoPopup = () => {
+interface Props {
+    classes: string[]
+}
+
+const InfoPopup = ({classes}: Props) => {
     return (
-        <div className="info-popup">
+        <div className={`info-popup ${classes.join(' ')}`}>
             <div className="info-popup__title">
                 Thông Tin{" "}
                 <img className="info-icon" src={infoIcon} alt="Info Icon" />
@@ -41,18 +45,20 @@ const InfoPopup = () => {
                     </p>
                 </li>
                 <li>
-                    Xin cám ơn logo Bánh Mỳ của Flaticon{" "}
-                    <a
-                        href="https://www.flaticon.com/free-icons/bread"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <img
-                            className="link-icon"
-                            src={link}
-                            alt="Bread Icon"
-                        />
-                    </a>
+                    <p>
+                        Xin cám ơn logo Bánh Mỳ của Flaticon{" "}
+                        <a
+                            href="https://www.flaticon.com/free-icons/bread"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <img
+                                className="link-icon"
+                                src={link}
+                                alt="Bread Icon"
+                            />
+                        </a>
+                    </p>
                 </li>
             </ul>
         </div>

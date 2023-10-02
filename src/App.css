@@ -178,8 +178,7 @@ body {
 .info-popup {
     visibility: hidden;
     position: absolute;
-    right: 36px;
-    bottom: 0;
+    z-index: 100;
 
     font-size: 16px;
     border-radius: 10px;
@@ -187,19 +186,41 @@ body {
     border: 1px solid var(--background);
     outline: none;
     width: 300px;
-    
+
     font-family: "Grandstander";
     text-align: left;
     color: var(--modal-text);
 
-    padding: 28px 18px;
+    padding: 22px 18px 14px 18px;
     box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.25);
 
     cursor: default;
+
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
-.info-button:hover .info-popup {
+.info-popup__map {
+    right: 18px;
+    bottom: 8px;
+}
+
+.info-popup__game-over {
+    left: 124px;
+    top: -160px;
+}
+
+.info-popup-wrapper__game-over {
+    margin: 16px auto 0 auto;
+    color: #5b8e7d;
+    text-decoration: underline;
+    position: relative;
+    width: 130px;
+}
+
+.info-popup-wrapper:hover .info-popup {
     visibility: visible;
+    opacity: 1;
 }
 
 .info-popup__title {
@@ -207,7 +228,6 @@ body {
     color: rgba(188, 75, 81, 0.9);
     font-size: 20px;
     font-weight: 600;
-    /* margin-bottom: 20px; */
 }
 
 .info-popup > ul {
@@ -219,6 +239,7 @@ body {
 
 .info-popup p {
     margin: 10px 0;
+    font-weight: 400;
 }
 
 .info-popup .info-icon {
@@ -233,6 +254,4 @@ body {
 .info-popup .highlight {
     color: rgba(188, 75, 81, 0.9);
 }
-
-
 

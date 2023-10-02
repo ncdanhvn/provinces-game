@@ -5,6 +5,7 @@ import useGameStateStore from "../../stores/gameStateStore";
 import useResultStore from "../../stores/resultStore";
 import "./Modal.css";
 import Ranks from "../../data/ranks";
+import InfoPopup from "./InfoPopup";
 
 Modal.setAppElement("#root");
 
@@ -99,6 +100,10 @@ const GameOverModal = () => {
                     className="modal__button__icon"
                 />
             </button>
+            <div className="info-popup-wrapper info-popup-wrapper__game-over">
+                <span>Game Info</span>
+                <InfoPopup classes={["info-popup__game-over"]} />
+            </div>
         </Modal>
     );
 };

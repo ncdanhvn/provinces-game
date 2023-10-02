@@ -5,32 +5,32 @@ import { useControls } from "react-zoom-pan-pinch";
 import InfoPopup from "./Modal/InfoPopup";
 
 const MapButtons = () => {
-  const { zoomIn, zoomOut, resetTransform } = useControls();
-  return (
-    <>
-      <div
-        className="map-buttons reset-button"
-        onClick={() => resetTransform()}
-      >
-        <RxReset className="map-buttons-icon" />
-      </div>
-      <div className="map-buttons button-group">
-        <div className="zoom-buttons" onClick={() => zoomIn()}>
-          <BiPlus className="map-buttons-icon" />
-        </div>
-        <div className="zoom-buttons" onClick={() => zoomOut()}>
-          <BiMinus className="map-buttons-icon" />
-        </div>
-      </div>
-      <div
-        className="map-buttons info-button"
-        onClick={() => console.log("Click info button")}
-      >
-        <IoInformationSharp className="map-buttons-icon info-button-icon" />
-        <InfoPopup />
-      </div>
-    </>
-  );
+    const { zoomIn, zoomOut, resetTransform } = useControls();
+    return (
+        <>
+            <div
+                className="map-buttons reset-button"
+                onClick={() => resetTransform()}
+            >
+                <RxReset className="map-buttons-icon" />
+            </div>
+            <div className="map-buttons button-group">
+                <div className="zoom-buttons" onClick={() => zoomIn()}>
+                    <BiPlus className="map-buttons-icon" />
+                </div>
+                <div className="zoom-buttons" onClick={() => zoomOut()}>
+                    <BiMinus className="map-buttons-icon" />
+                </div>
+            </div>
+            <div
+                className="map-buttons info-button info-popup-wrapper"
+                onClick={() => console.log("Click info button")}
+            >
+                <IoInformationSharp className="map-buttons-icon info-button-icon" />
+                <InfoPopup classes={['info-popup__map']} />
+            </div>
+        </>
+    );
 };
 
 export default MapButtons;
